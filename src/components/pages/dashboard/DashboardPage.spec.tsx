@@ -10,7 +10,7 @@ describe('Dashboard page testes', () => {
 
   it('Should show page name on h1', () => {
     const component = shallow(<DashboardPage />);
-    const z = component.find('h1').length;
-    expect(z).toBe(1);
+    const h1 = component.find('h1');
+    expect(h1.text).toEqual('Dashboard');
   });
 });
