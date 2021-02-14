@@ -9,7 +9,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.15",
+    "@types/jest": "^26.0.20",
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
@@ -26,13 +26,35 @@
     "start": "react-scripts start",
     "develop": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest --passWithNoTests --runInBand",
+    "test:ci": "yarn test --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
+    ]
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "roots": ["<rootDir>/src"],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageProvider": "v8",
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.tsx",
+      "!<rootDir>/src/**/index.tsx"
     ]
   },
   "browserslist": {
@@ -56,6 +78,9 @@
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
-    "prettier": "^2.2.1"
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1",
+    "react-test-renderer": "^17.0.1",
+    "ts-jest": "^26.5.1"
   }
 }
