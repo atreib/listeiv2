@@ -50,6 +50,9 @@
     "collectCoverageFrom": [
       "<rootDir>/src/**/*.tsx",
       "!<rootDir>/src/**/index.tsx"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setupTests.ts"
     ]
   },
   "browserslist": {
