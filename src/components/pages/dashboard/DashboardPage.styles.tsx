@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 
+export { AppInput } from './../../utils';
+
 export const ShoppingList = styled.div`
   margin: 0;
   padding: 0;
   wisth: 100%;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  flex-wrap: wrap;
 `;
 
 export const ListTitle = styled.div`
