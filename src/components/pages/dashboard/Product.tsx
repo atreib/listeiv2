@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ProductModel } from '../../../models';
 
 interface ComponentProps {
-  productName: string;
+  product: ProductModel;
 }
 
 const StyledProduct = styled.li`
@@ -10,6 +11,6 @@ const StyledProduct = styled.li`
   font-size: 1.5rem;
 `;
 
-export const Product = ({ productName }: ComponentProps) => {
-  return <StyledProduct>{productName}</StyledProduct>;
+export const Product = ({ product }: ComponentProps) => {
+  return <StyledProduct>{product.label}</StyledProduct>;
 };

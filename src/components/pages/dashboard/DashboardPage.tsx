@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import { ShoppingList, ListTitle, NewProduct, List, Product, AppInput, AppButton } from './DashboardPage.styles';
+import { ProductModel, ShoppingListModel } from './../../../models';
 
-const __mock_product__ = {
+const __mock_product__: ProductModel = {
+  id: '0000-0000-0000-00000000-0000',
   label: 'Iogurte',
   quantity: 2,
   unityPrice: 12.5,
   totalPrice: 25.0,
 };
 
-const __mock_list__ = [__mock_product__, __mock_product__, __mock_product__];
+const __mock_list__: ShoppingListModel = {
+  id: '0000',
+  products: [__mock_product__],
+};
 
 export const DashboardPage = () => {
-  const [shoppingList, setShoppingList] = useState(__mock_list__);
+  const [shoppingList, setShoppingList] = useState(__mock_list__.products);
   const [newProduct, setNewProduct] = useState<string>();
 
   const onAddNewProduct = () => {
@@ -19,6 +24,7 @@ export const DashboardPage = () => {
       setShoppingList([
         ...shoppingList,
         {
+          id: '00000',
           label: newProduct,
           quantity: 1,
           unityPrice: 0.0,
@@ -32,7 +38,7 @@ export const DashboardPage = () => {
     <ShoppingList>
       <ListTitle>Lista de compras</ListTitle>
       <div>
-        <List>{shoppingList && shoppingList.map((product, i) => <Product productName={product.label} key={i} />)}</List>
+        <List>{shoppingList && shoppingList.map((product) => <Product product={product} key={product.id} />)}</List>
       </div>
       <NewProduct>
         <AppInput label="Novo produto" placeholder="Digite um produto" value={newProduct} setValue={setNewProduct} />
