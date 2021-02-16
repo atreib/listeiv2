@@ -49,6 +49,7 @@
     "coverageProvider": "v8",
     "collectCoverageFrom": [
       "<rootDir>/src/components/pages/**/*.tsx",
+      "!<rootDir>/src/components/pages/**/*.styles.tsx",
       "!<rootDir>/src/**/index.tsx"
     ],
     "setupFilesAfterEnv": [
