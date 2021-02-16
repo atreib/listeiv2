@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingList, ListTitle, NewProduct, List, Product, AppInput } from './DashboardPage.styles';
+import { ShoppingList, ListTitle, NewProduct, List, Product, AppInput, AppButton } from './DashboardPage.styles';
 
 const __mock_product__ = {
   label: 'Iogurte',
@@ -21,13 +21,8 @@ export const DashboardPage = () => {
         <List>{shoppingList && shoppingList.map((product, i) => <Product key={i}>{product.label}</Product>)}</List>
       </div>
       <NewProduct>
-        <AppInput
-          label="Novo produto"
-          fullWidth={true}
-          placeholder="Digite um produto"
-          value={newProduct}
-          setValue={setNewProduct}
-        />
+        <AppInput label="Novo produto" placeholder="Digite um produto" value={newProduct} setValue={setNewProduct} />
+        <AppButton>Add</AppButton>
       </NewProduct>
     </ShoppingList>
   );

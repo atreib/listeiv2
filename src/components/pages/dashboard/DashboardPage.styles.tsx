@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export { AppInput } from './../../utils';
+export { AppInput, AppButton } from './../../utils';
 
 export const ShoppingList = styled.div`
   margin: 0;
@@ -30,4 +30,15 @@ export const Product = styled.li`
 export const NewProduct = styled.div`
   padding: 12px;
   font-size: 1.5rem;
+  display: flex;
+  align-items: stretch;
+  align-content: space-between;
+
+  & > div {
+    flex: 1 1 80%;
+  }
+
+  & > button {
+    flex: 1 1;
+  }
 `;
