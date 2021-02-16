@@ -3,7 +3,7 @@ import React from 'react';
 
 interface ComponentProps {
   label: string;
-  setValue: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
   value?: string;
   placeholder?: string;
   type?: string;
@@ -16,7 +16,7 @@ interface ComponentProps {
 /**
  * Default input/TextField of our project
  * @param label: (string) Input floating label
- * @param setValue: (React.Dispatch<React.SetStateAction<string | undefined>>) Set state of input value
+ * @param setValue: (React.Dispatch<React.SetStateAction<string>>) Set state of input value
  * @param value?: (string) Input value
  * @param placeholder?: (string) Input placeholder
  * @param type?: (string) Input type

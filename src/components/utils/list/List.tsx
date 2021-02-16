@@ -17,9 +17,5 @@ const StyledList = styled(List)`
  * @param children: (ReactChild[] | ReactChildren[]) list of list's children
  */
 export const AppList = ({ children }: ComponentProps) => {
-  return (
-    <StylesProvider injectFirst>
-      <StyledList dense>{children}</StyledList>
-    </StylesProvider>
-  );
+  return <StyledList dense>{children}</StyledList>;
 };

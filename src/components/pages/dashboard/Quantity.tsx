@@ -41,13 +41,13 @@ export const Quantity = ({ product, changeProductQuantity }: ComponentProps) => 
   return (
     <QuantitySelector>
       <DecreaseButton>
-        <AppIconButton onClick={() => decreaseQuantity()}>
+        <AppIconButton testId="decreaseButton" onClick={() => decreaseQuantity()}>
           <RemoveIcon />
         </AppIconButton>
       </DecreaseButton>
-      <QuantityLabel>{product.quantity}</QuantityLabel>
+      <QuantityLabel data-testid="quantity">{product.quantity}</QuantityLabel>
       <IncreaseButton>
-        <AppIconButton onClick={() => increaseQuantity()}>
+        <AppIconButton testId="increaseButton" onClick={() => increaseQuantity()}>
           <AddIcon />
         </AppIconButton>
       </IncreaseButton>

@@ -22,22 +22,22 @@ interface ComponentProps {
 }
 
 interface StyledProps {
-  paddingTop: string;
-  paddingRight: string;
-  paddingBottom: string;
-  paddingLeft: string;
-  marginTop: string;
-  marginRight: string;
-  marginBottom: string;
-  marginLeft: string;
+  paddingtop: string;
+  paddingright: string;
+  paddingbottom: string;
+  paddingleft: string;
+  margintop: string;
+  marginright: string;
+  marginbottom: string;
+  marginleft: string;
   fontSize?: string;
 }
 
 const StyledListItem = styled(ListItem)<StyledProps>`
-  margin: ${({ marginTop, marginRight, marginBottom, marginLeft }) =>
-    `${marginTop} ${marginRight} ${marginBottom} ${marginLeft}`};
-  padding: ${({ paddingTop, paddingRight, paddingBottom, paddingLeft }) =>
-    `${paddingTop} ${paddingRight} ${paddingBottom} ${paddingLeft}`};
+  margin: ${({ margintop, marginright, marginbottom, marginleft }) =>
+    `${margintop} ${marginright} ${marginbottom} ${marginleft}`};
+  padding: ${({ paddingtop, paddingright, paddingbottom, paddingleft }) =>
+    `${paddingtop} ${paddingright} ${paddingbottom} ${paddingleft}`};
   ${({ fontSize }) => fontSize && `font-size: ${fontSize};`}
 `;
 
@@ -73,24 +73,22 @@ export const AppListItem = ({
   marginLeft = '0px',
 }: ComponentProps) => {
   return (
-    <StylesProvider injectFirst>
-      <StyledListItem
-        paddingTop={paddingTop}
-        paddingRight={paddingRight}
-        paddingBottom={paddingBottom}
-        paddingLeft={paddingLeft}
-        marginTop={marginTop}
-        marginRight={marginRight}
-        marginBottom={marginBottom}
-        marginLeft={marginLeft}
-        fontSize={fontSize}
-        button
-        onClick={onListItemClick}
-      >
-        <ListItemIcon>{icon}</ListItemIcon>
-        {children}
-        <ListItemSecondaryAction>{secondaryAction}</ListItemSecondaryAction>
-      </StyledListItem>
-    </StylesProvider>
+    <StyledListItem
+      paddingtop={paddingTop}
+      paddingright={paddingRight}
+      paddingbottom={paddingBottom}
+      paddingleft={paddingLeft}
+      margintop={marginTop}
+      marginright={marginRight}
+      marginbottom={marginBottom}
+      marginleft={marginLeft}
+      fontSize={fontSize}
+      button
+      onClick={onListItemClick}
+    >
+      <ListItemIcon>{icon}</ListItemIcon>
+      {children}
+      <ListItemSecondaryAction>{secondaryAction}</ListItemSecondaryAction>
+    </StyledListItem>
   );
 };

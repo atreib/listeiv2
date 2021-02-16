@@ -11,17 +11,18 @@ import {
 } from './DashboardPage.styles';
 import { ProductModel } from './../../../models';
 import { generate } from './../../../helpers/uuid';
+import { colors } from './../../../helpers/theme';
 
 export const DashboardPage = () => {
   const [shoppingList, setShoppingList] = useState<ProductModel[]>();
-  const [newProduct, setNewProduct] = useState<string>();
+  const [newProduct, setNewProduct] = useState<string>('');
 
   /**
    * Adds a new product to the shopping list state
    * * Uses the value typed on newProduct's state
    */
   const onAddNewProduct = () => {
-    if (newProduct) {
+    if (newProduct && newProduct !== '') {
       const newitem = {
         id: generate(),
         label: newProduct,
@@ -83,8 +84,21 @@ export const DashboardPage = () => {
         {!shoppingList && 'Lista vazia'}
       </ListWrapper>
       <NewProduct>
-        <AppInput label="Novo produto" placeholder="Digite um produto" value={newProduct} setValue={setNewProduct} />
-        <AppButton onClick={onAddNewProduct}>Add</AppButton>
+        <AppInput
+          data-testid="inputProduct"
+          label="Novo produto"
+          placeholder="Digite um produto"
+          value={newProduct}
+          setValue={setNewProduct}
+        />
+        <AppButton
+          data-testid="btnAddProduct"
+          bgColor={colors.primary}
+          fontColor={colors.contrastPrimary}
+          onClick={onAddNewProduct}
+        >
+          Add
+        </AppButton>
       </NewProduct>
     </ShoppingList>
   );

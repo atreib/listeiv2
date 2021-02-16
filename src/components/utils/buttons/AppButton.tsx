@@ -16,13 +16,13 @@ interface ComponentProps {
 }
 
 interface ButtonProps {
-  bgColor?: string;
-  fontColor?: string;
+  bgcolor?: string;
+  fontcolor?: string;
 }
 
 const StyledButton = styled(Button)<ButtonProps>`
-  ${({ bgColor }) => bgColor && `background-color: ${fade(bgColor, 0.5)}; &:hover { background-color: ${bgColor}; } `}
-  ${({ fontColor }) => fontColor && `color: ${fade(fontColor, 1)};`}
+  ${({ bgcolor }) => bgcolor && `background-color: ${fade(bgcolor, 0.5)}; &:hover { background-color: ${bgcolor}; } `}
+  ${({ fontcolor }) => fontcolor && `color: ${fade(fontcolor, 1)};`}
 `;
 
 /**
@@ -47,19 +47,17 @@ export const AppButton = ({
   size = 'medium',
 }: ComponentProps) => {
   return (
-    <StylesProvider injectFirst>
-      <StyledButton
-        bgColor={bgColor}
-        fontColor={fontColor}
-        disabled={disabled}
-        onClick={onClick}
-        fullWidth={fullWidth}
-        size={size}
-        startIcon={icon}
-        variant="contained"
-      >
-        {children}
-      </StyledButton>
-    </StylesProvider>
+    <StyledButton
+      bgcolor={bgColor}
+      fontcolor={fontColor}
+      disabled={disabled}
+      onClick={onClick}
+      fullWidth={fullWidth}
+      size={size}
+      startIcon={icon}
+      variant="contained"
+    >
+      {children}
+    </StyledButton>
   );
 };
