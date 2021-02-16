@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { ProductModel } from '../../../models';
-import { AppListItem, AppIconButton } from './../../utils';
+import { AppListItem, AppIconButton, AppCheckbox } from './../../utils';
 import { DeleteIcon } from './../../utils/icons';
-
-import Checkbox from '@material-ui/core/Checkbox';
 
 interface ComponentProps {
   product: ProductModel;
@@ -21,7 +19,7 @@ export const Product = ({ product }: ComponentProps) => {
       <DeleteIcon />
     </AppIconButton>
   );
-  const checkbox = <Checkbox edge="end" onChange={() => setChecked(!checked)} checked={checked} />;
+  const checkbox = <AppCheckbox edge="end" setChecked={setChecked} checked={checked} />;
 
   return (
     <AppListItem
