@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export { AppInput, AppButton } from './../../utils';
+export { Product } from './Product';
 
 export const ShoppingList = styled.div`
   margin: 0;
@@ -20,11 +21,6 @@ export const List = styled.ul`
   margin: 0;
   padding: 4px 12px;
   list-styled-type: none;
-`;
-
-export const Product = styled.li`
-  padding: 8px 0px;
-  font-size: 1.5rem;
 `;
 
 export const NewProduct = styled.div`

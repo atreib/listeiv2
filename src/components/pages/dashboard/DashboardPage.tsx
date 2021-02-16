@@ -15,14 +15,24 @@ export const DashboardPage = () => {
   const [newProduct, setNewProduct] = useState<string>();
 
   const onAddNewProduct = () => {
-    console.log('clicou');
+    if (newProduct) {
+      setShoppingList([
+        ...shoppingList,
+        {
+          label: newProduct,
+          quantity: 1,
+          unityPrice: 0.0,
+          totalPrice: 0.0,
+        },
+      ]);
+    }
   };
 
   return (
     <ShoppingList>
       <ListTitle>Lista de compras</ListTitle>
       <div>
-        <List>{shoppingList && shoppingList.map((product, i) => <Product key={i}>{product.label}</Product>)}</List>
+        <List>{shoppingList && shoppingList.map((product, i) => <Product productName={product.label} key={i} />)}</List>
       </div>
       <NewProduct>
         <AppInput label="Novo produto" placeholder="Digite um produto" value={newProduct} setValue={setNewProduct} />
