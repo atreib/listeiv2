@@ -4,7 +4,7 @@ import { StylesProvider } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 
 interface ComponentProps {
-  children: ReactChild[] | ReactChildren[];
+  children: ReactChild | ReactChildren | ReactChild[] | ReactChildren[] | undefined;
 }
 
 const StyledList = styled(List)`

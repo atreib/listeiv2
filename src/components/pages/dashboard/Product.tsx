@@ -1,25 +1,31 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Quantity } from './Quantity';
 import { ProductModel } from '../../../models';
 import { AppListItem, AppIconButton, AppCheckbox } from './../../utils';
 import { DeleteIcon } from './../../utils/icons';
 
 interface ComponentProps {
   product: ProductModel;
+  onRemoveProduct: (id: string) => void;
+  changeProductQuantity: (increase: boolean, id: string) => void;
 }
 
-export const Product = ({ product }: ComponentProps) => {
+const ProductLabel = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+`;
+
+export const Product = ({ product, onRemoveProduct, changeProductQuantity }: ComponentProps) => {
   const [checked, setChecked] = useState(false);
+  const checkbox = <AppCheckbox edge="end" setChecked={setChecked} checked={checked} />;
 
-  const handleRemove = () => {
-    console.log('teste');
-  };
-
-  const icon = (
-    <AppIconButton onClick={handleRemove}>
+  const removeProductIconButton = (
+    <AppIconButton onClick={() => onRemoveProduct(product.id)}>
       <DeleteIcon />
     </AppIconButton>
   );
-  const checkbox = <AppCheckbox edge="end" setChecked={setChecked} checked={checked} />;
 
   return (
     <AppListItem
@@ -28,9 +34,20 @@ export const Product = ({ product }: ComponentProps) => {
       paddingLeft="16px"
       fontSize="1.5rem"
       secondaryAction={checkbox}
-      icon={icon}
+      icon={removeProductIconButton}
     >
-      {product.label}
+      <ProductLabel>
+        <Quantity product={product} changeProductQuantity={changeProductQuantity} />
+        <div>
+          {checked ? (
+            <s>
+              (R$ {product.unityPrice}) {product.label}
+            </s>
+          ) : (
+            `(R$ ${product.unityPrice}) ${product.label} `
+          )}
+        </div>
+      </ProductLabel>
     </AppListItem>
   );
 };
