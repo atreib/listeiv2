@@ -11,8 +11,12 @@ const __mock_product__ = {
 const __mock_list__ = [__mock_product__, __mock_product__, __mock_product__];
 
 export const DashboardPage = () => {
-  const [shoppingList, setShoppintList] = useState(__mock_list__);
+  const [shoppingList, setShoppingList] = useState(__mock_list__);
   const [newProduct, setNewProduct] = useState<string>();
+
+  const onAddNewProduct = () => {
+    console.log('clicou');
+  };
 
   return (
     <ShoppingList>
@@ -22,7 +26,7 @@ export const DashboardPage = () => {
       </div>
       <NewProduct>
         <AppInput label="Novo produto" placeholder="Digite um produto" value={newProduct} setValue={setNewProduct} />
-        <AppButton>Add</AppButton>
+        <AppButton onClick={onAddNewProduct}>Add</AppButton>
       </NewProduct>
     </ShoppingList>
   );
