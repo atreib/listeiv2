@@ -37,7 +37,7 @@ const StyledListItem = styled(ListItem)<StyledProps>`
 `;
 
 /**
- *
+ * Our default ListItem component
  * @param options: (ComponentProps) {
  * * children: (ReactChild | ReactChildren) Main text/label of list item
  * * paddingTop?: (string) List item padding-top (use "px")

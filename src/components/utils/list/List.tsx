@@ -12,6 +12,13 @@ const StyledList = styled(List)`
   padding: 0;
 `;
 
+/**
+ * Our default List component
+ * @param options: ComponentProps {
+ * * children: (ReactChild[] | ReactChildren[]) list of list's children
+ * }
+ *
+ */
 export const AppList = ({ children }: ComponentProps) => {
   return (
     <StylesProvider injectFirst>
