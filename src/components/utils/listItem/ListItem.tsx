@@ -36,6 +36,22 @@ const StyledListItem = styled(ListItem)<StyledProps>`
   ${({ fontSize }) => fontSize && `font-size: ${fontSize};`}
 `;
 
+/**
+ *
+ * @param options: (ComponentProps) {
+ * * children: (ReactChild | ReactChildren) Main text/label of list item
+ * * paddingTop?: (string) List item padding-top (use "px")
+ * * paddingRight?: (string) List item padding-right (use "px")
+ * * paddingBottom?: (string) List item padding-bottom (use "px")
+ * * paddingLeft?: (string) List item padding-left (use "px")
+ * * marginTop?: (string) List item margin-top (use "px")
+ * * marginRight?: (string) List item margin-right (use "px")
+ * * marginBottom?: (string) List item margin-bottom (use "px")
+ * * marginLeft?: (string) List item margin-left (use "px")
+ * * fontSize?: (string) List item font-size (use "rem")
+ * }
+ *
+ */
 export const AppListItem = ({
   children,
   fontSize,
