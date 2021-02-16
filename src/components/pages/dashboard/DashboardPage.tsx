@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { ShoppingList, ListTitle, NewProduct, List, Product, AppInput, AppButton } from './DashboardPage.styles';
+import {
+  ShoppingList,
+  ListTitle,
+  NewProduct,
+  ListWrapper,
+  Product,
+  AppInput,
+  AppButton,
+  AppList,
+} from './DashboardPage.styles';
 import { ProductModel, ShoppingListModel } from './../../../models';
 
 const __mock_product__: ProductModel = {
@@ -37,9 +46,11 @@ export const DashboardPage = () => {
   return (
     <ShoppingList>
       <ListTitle>Lista de compras</ListTitle>
-      <div>
-        <List>{shoppingList && shoppingList.map((product) => <Product product={product} key={product.id} />)}</List>
-      </div>
+      <ListWrapper>
+        <AppList>
+          {shoppingList && shoppingList.map((product) => <Product product={product} key={product.id} />)}
+        </AppList>
+      </ListWrapper>
       <NewProduct>
         <AppInput label="Novo produto" placeholder="Digite um produto" value={newProduct} setValue={setNewProduct} />
         <AppButton onClick={onAddNewProduct}>Add</AppButton>

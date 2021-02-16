@@ -1,16 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
 import { ProductModel } from '../../../models';
+import { AppListItem } from './../../utils/listItem/ListItem';
 
 interface ComponentProps {
   product: ProductModel;
 }
 
-const StyledProduct = styled.li`
-  padding: 8px 0px;
-  font-size: 1.5rem;
-`;
-
 export const Product = ({ product }: ComponentProps) => {
-  return <StyledProduct>{product.label}</StyledProduct>;
+  return (
+    <AppListItem paddingTop="8px" paddingBottom="8px" paddingLeft="16px" fontSize="1.5rem">
+      {product.label}
+    </AppListItem>
+  );
 };
