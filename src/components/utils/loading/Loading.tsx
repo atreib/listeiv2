@@ -24,7 +24,7 @@ interface LoadingWrapperProps {
 		- children: our loading panel content is a children element - react element
 */
 
-const LoadingWrapper = styled.div<LoadingWrapperProps>`
+export const LoadingWrapper = styled.div<LoadingWrapperProps>`
   width: ${(props) => (props.width ? props.width : '100%')};
   height: ${(props) => (props.height ? props.height : '100%')};
   display: flex;
@@ -37,7 +37,7 @@ LoadingWrapper.displayName = 'LoadingWrapper';
 
 export const Loading = ({ children, width, height, backgroundColor }: ComponentProps) => {
   return (
-    <LoadingWrapper width={width} height={height} backgroundColor={backgroundColor}>
+    <LoadingWrapper data-testid="loadingwrapper" width={width} height={height} backgroundColor={backgroundColor}>
       {children}
     </LoadingWrapper>
   );
