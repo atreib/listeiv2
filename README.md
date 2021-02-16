@@ -1,6 +1,16 @@
 # Listei v2
 
-Passo a passo percorrido para configuração da solução.
+- Passo a passo percorrido para configuração da solução.
+- Especificações sobre o processo de desenvolvimento
+
+# Processo de deenvolvimento
+
+- Qualquer modificação/feature/fix deve possuir uma issue no Github/repo do projeto
+  - A issue deverá ter uma lista de expectativas
+    - Cada expectativa deverá tornar-se um teste automatizado
+- Toda issue deverá ser resolvida em uma branch
+  - A branch deverá respeitar o nome baseado no código da issue. Ex: `issues/7`(sendo "7" o código da issue)
+- Toda branch deverá abrir um pull request (PR) para dar merge em develop
 
 # Softwares necessários
 
