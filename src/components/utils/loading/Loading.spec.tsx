@@ -13,12 +13,12 @@ describe('Loading component test suite', () => {
   it('Should correctly add style through provided props', () => {
     const content = 'Teste';
     const children = <b>{content}</b>;
-    render(
+    const { getByTestId } = render(
       <Sut width="100px" height="100px" backgroundColor="red">
         {children}
       </Sut>,
     );
-    const sut = screen.getByTestId('loadingwrapper');
+    const sut = getByTestId('loadingwrapper');
     expect(sut).toHaveStyle('width: 100px');
     expect(sut).toHaveStyle('height: 100px');
     expect(sut).toHaveStyle('background-color: red');
