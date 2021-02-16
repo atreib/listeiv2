@@ -14,6 +14,7 @@ interface ComponentProps {
   marginBottom?: string;
   marginLeft?: string;
   fontSize?: string;
+  onListItemClick?: () => void;
 }
 
 interface StyledProps {
@@ -49,12 +50,14 @@ const StyledListItem = styled(ListItem)<StyledProps>`
  * * marginBottom?: (string) List item margin-bottom (use "px")
  * * marginLeft?: (string) List item margin-left (use "px")
  * * fontSize?: (string) List item font-size (use "rem")
+ * * onListItemClick?: (() => void) On list item click handler
  * }
  *
  */
 export const AppListItem = ({
   children,
   fontSize,
+  onListItemClick,
   paddingTop = '0px',
   paddingRight = '0px',
   paddingBottom = '0px',
@@ -77,6 +80,7 @@ export const AppListItem = ({
         marginLeft={marginLeft}
         fontSize={fontSize}
         button
+        onClick={onListItemClick}
       >
         {children}
       </StyledListItem>
