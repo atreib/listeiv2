@@ -15,18 +15,15 @@ interface ComponentProps {
 
 /**
  * Default input/TextField of our project
- * @param options (ComponentProps) {
- *  * label: (string) Input floating label
- *  * setValue: (React.Dispatch<React.SetStateAction<string | undefined>>) Set state of input value
- *  * value?: (string) Input value
- *  * placeholder?: (string) Input placeholder
- *  * type?: (string) Input type
- *  * required?: (boolean) Is input required?
- *  * fullWidth?: (boolean) Should input fill full width?
- *  * error?: (boolean) Is input with error?
- *  * errorHelperText?: (string) Description of input error
- *
- * }
+ * @param label: (string) Input floating label
+ * @param setValue: (React.Dispatch<React.SetStateAction<string | undefined>>) Set state of input value
+ * @param value?: (string) Input value
+ * @param placeholder?: (string) Input placeholder
+ * @param type?: (string) Input type
+ * @param required?: (boolean) Is input required?
+ * @param fullWidth?: (boolean) Should input fill full width?
+ * @param error?: (boolean) Is input with error?
+ * @param errorHelperText?: (string) Description of input error
  */
 export const AppInput = ({
   label,

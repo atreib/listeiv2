@@ -14,17 +14,7 @@ interface LoadingWrapperProps {
   backgroundColor?: string;
 }
 
-/*
-	LoadingWrapper component
-
-	Goal: Creates a fully-centralized with darker background loading panel
-	Params (ComponentProps interface):
-		- width?: (optional) width of our loading panel
-		- height?: (optional) height of our loading panel
-		- children: our loading panel content is a children element - react element
-*/
-
-export const LoadingWrapper = styled.div<LoadingWrapperProps>`
+const LoadingWrapper = styled.div<LoadingWrapperProps>`
   width: ${(props) => (props.width ? props.width : '100%')};
   height: ${(props) => (props.height ? props.height : '100%')};
   display: flex;
@@ -33,8 +23,14 @@ export const LoadingWrapper = styled.div<LoadingWrapperProps>`
   overflow: hidden;
   background: ${(props) => (props.backgroundColor ? props.backgroundColor : '#ccc')};
 `;
-LoadingWrapper.displayName = 'LoadingWrapper';
 
+/**
+ * Our default app loading component
+ * @param chilren: (ReactChild | ReactChildren) content of loading wrapper
+ * @param width?: (string) loading width (use "px" or "%"; default: 100%)
+ * @param height?: (string) loading width (use "px" or "%"; default: 100%)
+ * @param backgroundColor?: (string) loading background color in hexadecimal
+ */
 export const Loading = ({ children, width, height, backgroundColor }: ComponentProps) => {
   return (
     <LoadingWrapper data-testid="loadingwrapper" width={width} height={height} backgroundColor={backgroundColor}>

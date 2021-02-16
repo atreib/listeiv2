@@ -14,10 +14,7 @@ const StyledList = styled(List)`
 
 /**
  * Our default List component
- * @param options: ComponentProps {
- * * children: (ReactChild[] | ReactChildren[]) list of list's children
- * }
- *
+ * @param children: (ReactChild[] | ReactChildren[]) list of list's children
  */
 export const AppList = ({ children }: ComponentProps) => {
   return (

@@ -39,20 +39,17 @@ const StyledListItem = styled(ListItem)<StyledProps>`
 
 /**
  * Our default ListItem component
- * @param options: (ComponentProps) {
- * * children: (ReactChild | ReactChildren) Main text/label of list item
- * * paddingTop?: (string) List item padding-top (use "px")
- * * paddingRight?: (string) List item padding-right (use "px")
- * * paddingBottom?: (string) List item padding-bottom (use "px")
- * * paddingLeft?: (string) List item padding-left (use "px")
- * * marginTop?: (string) List item margin-top (use "px")
- * * marginRight?: (string) List item margin-right (use "px")
- * * marginBottom?: (string) List item margin-bottom (use "px")
- * * marginLeft?: (string) List item margin-left (use "px")
- * * fontSize?: (string) List item font-size (use "rem")
- * * onListItemClick?: (() => void) On list item click handler
- * }
- *
+ * @param children (ReactChild | ReactChildren) Main text/label of list item
+ * @param paddingTop (string) List item padding-top (use "px")
+ * @param paddingRight (string) List item padding-right (use "px")
+ * @param paddingBottom (string) List item padding-bottom (use "px")
+ * @param paddingLeft (string) List item padding-left (use "px")
+ * @param marginTop (string) List item margin-top (use "px")
+ * @param marginRight (string) List item margin-right (use "px")
+ * @param marginBottom (string) List item margin-bottom (use "px")
+ * @param marginLeft (string) List item margin-left (use "px")
+ * @param fontSize (string) List item font-size (use "rem")
+ * @param onListItemClick (() => void) On list item click handler
  */
 export const AppListItem = ({
   children,

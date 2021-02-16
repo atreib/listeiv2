@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { ProductModel } from '../../../models';
-import { AppListItem } from './../../utils/listItem/ListItem';
-
-import DeleteIcon from '@material-ui/icons/Delete';
+import { AppListItem, AppIconButton } from './../../utils';
+import { DeleteIcon } from './../../utils/icons';
 
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Checkbox from '@material-ui/core/Checkbox';
 import { ListItemIcon } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
 
 interface ComponentProps {
   product: ProductModel;
@@ -24,9 +22,9 @@ export const Product = ({ product }: ComponentProps) => {
     <AppListItem paddingTop="8px" paddingBottom="8px" paddingLeft="16px" fontSize="1.5rem">
       <>
         <ListItemIcon>
-          <IconButton onClick={handleRemove}>
+          <AppIconButton onClick={handleRemove}>
             <DeleteIcon />
-          </IconButton>
+          </AppIconButton>
         </ListItemIcon>
         {product.label}
         <ListItemSecondaryAction>

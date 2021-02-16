@@ -27,17 +27,14 @@ const StyledButton = styled(Button)<ButtonProps>`
 
 /**
  * Default button of our project
- * @param options (ComponentProps) {
- *  * children: (ReactChild | ReactChildren) Button's content
- *  * onClick: (onClick: () => void) Function to be called on button's click
- *  * bgColor?: (string) background hexadecimal color
- *  * fontColor?: (string) font hexadecimal color
- *  * icon?: (Node) Icon to insert on the start of the button
- *  * disabled?: (boolean) Is input disabled?
- *  * fullWidth?: (boolean) Should input fill full width?
- *  * size?: ("small" | "medium" | "large") button size
- *
- * }
+ * @param children: (ReactChild | ReactChildren) Button's content
+ * @param onClick: (onClick: () => void) Function to be called on button's click
+ * @param bgColor?: (string) background hexadecimal color
+ * @param fontColor?: (string) font hexadecimal color
+ * @param icon?: (Node) Icon to insert on the start of the button
+ * @param disabled?: (boolean) Is input disabled?
+ * @param fullWidth?: (boolean) Should input fill full width?
+ * @param size?: ("small" | "medium" | "large") button size
  */
 export const AppButton = ({
   children,
