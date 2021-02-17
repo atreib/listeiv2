@@ -11,6 +11,10 @@ const Sut = () => (
 );
 
 describe('Dashboard page testes', () => {
+  beforeEach(() => {
+    localStorage.setItem('openedShoppingList', '');
+  });
+
   it('Should render correctly', () => {
     const { getByText } = render(<Sut />);
     expect(getByText(/Lista de compras/i)).toBeInTheDocument();
@@ -33,48 +37,55 @@ describe('Dashboard page testes', () => {
   });
 
   it('Should increase by 1 the quantity of a product after clicking on plus', () => {
-    const { getByTestId } = render(<Sut />);
+    const { getAllByTestId } = render(<Sut />);
     userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
     userEvent.click(screen.getByText('Add'));
-    const increaseBtn = getByTestId('increaseButton');
+    const increaseBtn = getAllByTestId('increaseButton');
     expect(increaseBtn).toBeTruthy();
+    expect(increaseBtn.length).toBeGreaterThanOrEqual(1);
     if (increaseBtn) {
-      userEvent.click(increaseBtn);
-      const quantityLbl = getByTestId('quantity');
+      userEvent.click(increaseBtn[0]);
+      const quantityLbl = getAllByTestId('quantity');
       expect(quantityLbl).toBeTruthy();
-      expect(quantityLbl.innerHTML).toEqual('2');
+      expect(quantityLbl.length).toBeGreaterThanOrEqual(1);
+      expect(quantityLbl[0].innerHTML).toEqual('2');
     }
   });
 
   it('Should decrease by 1 the quantity of a product after clicking on minus', () => {
-    const { getByTestId } = render(<Sut />);
+    const { getAllByTestId } = render(<Sut />);
     userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
     userEvent.click(screen.getByText('Add'));
-    const increaseBtn = getByTestId('increaseButton');
-    const decreaseBtn = getByTestId('decreaseButton');
+    const increaseBtn = getAllByTestId('increaseButton');
+    const decreaseBtn = getAllByTestId('decreaseButton');
     expect(increaseBtn).toBeTruthy();
+    expect(increaseBtn.length).toBeGreaterThanOrEqual(1);
     expect(decreaseBtn).toBeTruthy();
+    expect(increaseBtn.length).toBeGreaterThanOrEqual(1);
     if (increaseBtn && decreaseBtn) {
-      userEvent.click(increaseBtn);
-      const quantityLbl = getByTestId('quantity');
+      userEvent.click(increaseBtn[0]);
+      const quantityLbl = getAllByTestId('quantity');
       expect(quantityLbl).toBeTruthy();
-      expect(quantityLbl.innerHTML).toEqual('2');
-      userEvent.click(decreaseBtn);
-      expect(quantityLbl.innerHTML).toEqual('1');
+      expect(quantityLbl.length).toBeGreaterThanOrEqual(1);
+      expect(quantityLbl[0].innerHTML).toEqual('2');
+      userEvent.click(decreaseBtn[0]);
+      expect(quantityLbl[0].innerHTML).toEqual('1');
     }
   });
 
   it('Should keep the quantity equals 1 after clicking on minus if its already 1', () => {
-    const { getByTestId } = render(<Sut />);
+    const { getAllByTestId } = render(<Sut />);
     userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
     userEvent.click(screen.getByText('Add'));
-    const decreaseBtn = getByTestId('decreaseButton');
+    const decreaseBtn = getAllByTestId('decreaseButton');
     expect(decreaseBtn).toBeTruthy();
+    expect(decreaseBtn.length).toBeGreaterThanOrEqual(1);
     if (decreaseBtn) {
-      userEvent.click(decreaseBtn);
-      const quantityLbl = getByTestId('quantity');
+      userEvent.click(decreaseBtn[0]);
+      const quantityLbl = getAllByTestId('quantity');
       expect(quantityLbl).toBeTruthy();
-      expect(quantityLbl.innerHTML).toEqual('1');
+      expect(quantityLbl.length).toBeGreaterThanOrEqual(1);
+      expect(quantityLbl[0].innerHTML).toEqual('1');
     }
   });
 

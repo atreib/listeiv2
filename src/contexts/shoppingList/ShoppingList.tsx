@@ -1,4 +1,4 @@
-import React, { useState, createContext, ReactChild, ReactChildren } from 'react';
+import React, { useState, createContext, ReactChild, ReactChildren, useEffect } from 'react';
 import { generate } from '../../helpers/uuid';
 import { ProductModel } from '../../models';
 
@@ -77,6 +77,18 @@ const ShoppingListProvider = ({ children }: ComponentProps) => {
       }),
     );
   };
+
+  useEffect(() => {
+    if (products && products.length > 0) localStorage.setItem('openedShoppingList', JSON.stringify(products));
+  }, [products]);
+
+  useEffect(() => {
+    const localStorageShoppingList = localStorage.getItem('openedShoppingList');
+    if (localStorageShoppingList && localStorageShoppingList !== '') {
+      const storedProducts = JSON.parse(localStorageShoppingList);
+      setProducts(storedProducts);
+    }
+  }, [setProducts]);
 
   return (
     <ShoppingListContext.Provider
