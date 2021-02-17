@@ -26,8 +26,8 @@ export const Product = ({ product, onRemoveProduct, changeProductQuantity }: Com
   const removeProductIconButton = (
     <AppIconButton
       size="small"
-      bgColor={colors.contrastPrimary}
-      fontColor={colors.contrastBackground}
+      bgColor={colors.background}
+      fontColor={colors.danger}
       testId="btnRemoveProduct"
       onClick={() => onRemoveProduct(product.id)}
     >

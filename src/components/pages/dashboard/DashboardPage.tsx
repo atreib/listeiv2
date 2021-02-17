@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet';
 import {
   ShoppingList,
   ListTitle,
@@ -67,6 +68,11 @@ export const DashboardPage = () => {
 
   return (
     <ShoppingList>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Lista de compras</title>
+        <style>{`body { background-color: ${colors.background}; color: ${colors.contrastBackground}; }`}</style>
+      </Helmet>
       <ListTitle>Lista de compras</ListTitle>
       <ListWrapper>
         {shoppingList && (

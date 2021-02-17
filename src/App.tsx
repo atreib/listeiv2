@@ -5,12 +5,9 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { NotFoundPage } from './components/pages';
 import { AppRoutes, RoutesModel } from './routes';
 import { Loading } from './components/utils/loading';
-import { colors } from './helpers/theme';
 
 const ContainerDiv = styled.div`
   height: 100%;
-  background-color: ${colors.background};
-  color: ${colors.contrastBackground};
 `;
 
 function App() {
