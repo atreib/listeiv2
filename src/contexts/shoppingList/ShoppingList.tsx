@@ -1,6 +1,6 @@
 import React, { useState, createContext, ReactChild, ReactChildren, useEffect } from 'react';
 import { generate } from '../../helpers/uuid';
-import { ProductModel } from '../../models';
+import { ProductModel, ShoppingListModel } from '../../models';
 
 interface ComponentProps {
   children: ReactChild | ReactChildren;
@@ -12,6 +12,7 @@ type ProviderType = {
   decreaseProductQuantity: (productId: string) => void;
   removeProduct: (productId: string) => void;
   addProduct: (productName: string) => void;
+  startNewList: () => void;
 };
 
 const initialProviderValues: ProviderType = {
@@ -20,6 +21,7 @@ const initialProviderValues: ProviderType = {
   decreaseProductQuantity: () => null,
   removeProduct: () => null,
   addProduct: () => null,
+  startNewList: () => null,
 };
 
 const ShoppingListContext = createContext<ProviderType>(initialProviderValues);
@@ -78,6 +80,24 @@ const ShoppingListProvider = ({ children }: ComponentProps) => {
     );
   };
 
+  /**
+   * Start new shopping list
+   * - Store the current shopping list on localStorage
+   * - Start a new, empty, one
+   */
+  const startNewList = () => {
+    let history: ShoppingListModel[] = [];
+    const localStorageHistory = localStorage.getItem('shoppingListHistory');
+    if (localStorageHistory && localStorageHistory !== '') history = JSON.parse(localStorageHistory);
+    history.push({
+      id: generate(),
+      products: products,
+    });
+    localStorage.setItem('shoppingListHistory', JSON.stringify(history));
+    setProducts([]);
+    localStorage.setItem('openedShoppingList', '');
+  };
+
   useEffect(() => {
     if (products && products.length > 0) localStorage.setItem('openedShoppingList', JSON.stringify(products));
   }, [products]);
@@ -92,7 +112,7 @@ const ShoppingListProvider = ({ children }: ComponentProps) => {
 
   return (
     <ShoppingListContext.Provider
-      value={{ products, increaseProductQuantity, decreaseProductQuantity, removeProduct, addProduct }}
+      value={{ products, increaseProductQuantity, decreaseProductQuantity, removeProduct, addProduct, startNewList }}
     >
       {children}
     </ShoppingListContext.Provider>
