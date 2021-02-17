@@ -85,17 +85,18 @@ describe('Dashboard page testes', () => {
     }
   });
 
-  /*it('Should strike through after checking a product', () => {
+  it('Should strike through after checking a product', () => {
     const { getByTestId } = render(<Sut />);
     userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
     userEvent.click(screen.getByText('Add'));
-    const productCheckbox = getByTestId('productCheckbox');
+    const productCheckbox = getByTestId('productCheckbox').querySelector('input[type="checkbox"]') as HTMLInputElement;
     expect(productCheckbox).toBeTruthy();
     if (productCheckbox) {
       userEvent.click(productCheckbox);
+      expect(productCheckbox.checked).toEqual(true);
       const productLbl = getByTestId('productLabel');
       expect(productLbl).toBeTruthy();
-      if (productLbl) expect(productLbl).toContain('<s>');
+      if (productLbl) expect(productLbl.innerHTML.indexOf('<s>')).toBeGreaterThanOrEqual(0);
     }
-  });*/
+  });
 });
