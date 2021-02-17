@@ -9,6 +9,7 @@ import {
   AppInput,
   AppButton,
   AppList,
+  NoteAddIcon,
 } from './DashboardPage.styles';
 import { colors } from './../../../helpers/theme';
 import { ShoppingListContext } from './../../../contexts';
@@ -55,7 +56,14 @@ export const DashboardPage = () => {
         <title>Lista de compras</title>
         <style>{`body { background-color: ${colors.background}; color: ${colors.contrastBackground}; }`}</style>
       </Helmet>
-      <ListTitle>Lista de compras</ListTitle>
+      <ListTitle>
+        <div>Lista de compras</div>
+        <div>
+          <AppButton bgColor={colors.primary} fontColor={colors.contrastPrimary} onClick={() => console.log('clicou')}>
+            <NoteAddIcon />
+          </AppButton>
+        </div>
+      </ListTitle>
       <ListWrapper>
         {products && (
           <AppList>

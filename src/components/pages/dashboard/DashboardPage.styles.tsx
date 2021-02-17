@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { colors } from '../../../helpers/theme';
 
 export { AppInput, AppButton, AppList } from './../../utils';
+export { NoteAddIcon } from './../../utils/icons';
 export { Product } from './Product';
 
 export const ShoppingList = styled.div`
@@ -19,6 +20,10 @@ export const ListTitle = styled.div`
   font-size: 1.5rem;
   color: ${colors.contrastPrimary};
   background-color: ${colors.primary};
+  display: flex;
+  flex-orientation: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const ListWrapper = styled.div`
