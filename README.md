@@ -1,5 +1,8 @@
 # Listei v2
 
+Este projeto foi desenvolvido para estudar testes automatizados com Testing Library e Jest no React.
+Além disto, é um ótimo auxiliar para o seu rancho. :)
+
 - Passo a passo percorrido para configuração da solução.
 - Especificações sobre o processo de desenvolvimento
 
@@ -11,6 +14,8 @@
 - Toda issue deverá ser resolvida em uma branch
   - A branch deverá respeitar o nome baseado no código da issue. Ex: `issues/7`(sendo "7" o código da issue)
 - Toda branch deverá abrir um pull request (PR) para dar merge em develop
+- As regras de domínio da solução devem ser testadas com teste automatizado
+  - Ex: Se eu coloco um item no carrinho, espero que o nº total seja incrementado (isto deve ser testado)
 
 # Softwares necessários
 
