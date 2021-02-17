@@ -71,7 +71,12 @@ export const DashboardPage = () => {
       <ListTitle>
         <div>Lista de compras</div>
         <div>
-          <AppButton bgColor={colors.primary} fontColor={colors.contrastPrimary} onClick={() => onStartNewList()}>
+          <AppButton
+            testId="startNewListBtn"
+            bgColor={colors.primary}
+            fontColor={colors.contrastPrimary}
+            onClick={() => onStartNewList()}
+          >
             <NewListIcon />
           </AppButton>
         </div>

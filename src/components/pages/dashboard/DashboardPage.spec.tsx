@@ -20,6 +20,19 @@ describe('Dashboard page testes', () => {
     expect(getByText(/Lista de compras/i)).toBeInTheDocument();
   });
 
+  it('Should start a empty shopping list after clicking on start new list', () => {
+    const { getByPlaceholderText, getByText, getByTestId } = render(<Sut />);
+    userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock product name');
+    userEvent.click(getByText('Add'));
+    expect(screen.getByText(/Mock product name/i)).toBeInTheDocument();
+    const startNewListBtn = getByTestId('startNewListBtn');
+    expect(startNewListBtn).toBeTruthy();
+    if (startNewListBtn) {
+      userEvent.click(startNewListBtn);
+      expect(getByText(/Lista vazia/i)).toBeInTheDocument();
+    }
+  });
+
   it('Should add typed product on list after clicking on add', () => {
     render(<Sut />);
     userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
