@@ -1,9 +1,10 @@
 import React, { ReactChildren, ReactChild } from 'react';
 import styled from 'styled-components';
-import { StylesProvider } from '@material-ui/core/styles';
+import { fade, StylesProvider } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import { ListItemIcon } from '@material-ui/core';
+import { ListItemIcon, ListItemText } from '@material-ui/core';
+import { colors } from './../../../helpers/theme';
 
 interface ComponentProps {
   children: ReactChild | ReactChildren;
@@ -39,6 +40,12 @@ const StyledListItem = styled(ListItem)<StyledProps>`
   padding: ${({ paddingtop, paddingright, paddingbottom, paddingleft }) =>
     `${paddingtop} ${paddingright} ${paddingbottom} ${paddingleft}`};
   ${({ fontSize }) => fontSize && `font-size: ${fontSize};`}
+  border-bottom: 1px solid ${fade(colors.contrastBackground, 0.1)};
+
+  & .MuiListItemIcon-root {
+    min-width: auto;
+    padding: 0px 8px;
+  }
 `;
 
 /**

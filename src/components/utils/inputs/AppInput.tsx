@@ -1,5 +1,7 @@
 import { TextField } from '@material-ui/core';
 import React from 'react';
+import styled from 'styled-components';
+import { colors } from '../../../helpers/theme';
 
 interface ComponentProps {
   label: string;
@@ -12,6 +14,21 @@ interface ComponentProps {
   error?: boolean;
   errorHelperText?: string;
 }
+
+const StyledTextField = styled(TextField)`
+  & .Mui-focused {
+    color: ${colors.primary};
+    border-color: ${colors.primary} !important;
+  }
+
+  & input {
+    color: ${colors.contrastBackground};
+  }
+
+  & fieldset {
+    border-color: ${colors.primary} !important;
+  }
+`;
 
 /**
  * Default input/TextField of our project
@@ -37,7 +54,7 @@ export const AppInput = ({
   errorHelperText = '',
 }: ComponentProps) => {
   return (
-    <TextField
+    <StyledTextField
       error={error}
       helperText={errorHelperText}
       required={required}
