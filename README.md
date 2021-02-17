@@ -1,6 +1,21 @@
 # Listei v2
 
-Passo a passo percorrido para configuração da solução.
+Este projeto foi desenvolvido para estudar testes automatizados com Testing Library e Jest no React.
+Além disto, é um ótimo auxiliar para o seu rancho. :)
+
+- Passo a passo percorrido para configuração da solução.
+- Especificações sobre o processo de desenvolvimento
+
+# Processo de deenvolvimento
+
+- Qualquer modificação/feature/fix deve possuir uma issue no Github/repo do projeto
+  - A issue deverá ter uma lista de expectativas
+    - Cada expectativa deverá tornar-se um teste automatizado
+- Toda issue deverá ser resolvida em uma branch
+  - A branch deverá respeitar o nome baseado no código da issue. Ex: `issues/7`(sendo "7" o código da issue)
+- Toda branch deverá abrir um pull request (PR) para dar merge em develop
+- As regras de domínio da solução devem ser testadas com teste automatizado
+  - Ex: Se eu coloco um item no carrinho, espero que o nº total seja incrementado (isto deve ser testado)
 
 # Softwares necessários
 
@@ -226,7 +241,8 @@ Com as nossas bibliotecas adicionadas, vamos configurar o Jest para trabalhar co
     "coverageDirectory": "coverage",
     "coverageProvider": "v8",
     "collectCoverageFrom": [
-      "<rootDir>/src/**/*.tsx",
+      "<rootDir>/src/components/pages/**/*.tsx",
+      "!<rootDir>/src/components/pages/**/*.styles.tsx",
       "!<rootDir>/src/**/index.tsx"
     ]
   },
@@ -239,4 +255,22 @@ Além disto, vamos modificar o script `test` e criar um script `test:ci` (també
 ```python
 "test": "jest --passWithNoTests --runInBand",
 "test:ci": "yarn test --coverage",
+```
+
+## Criando setupTests.ts para o Testing Library
+
+Vamos criar o arquivo `/src/setupTests.ts`, que será o arquivo com os imports necessários antes de qualquer teste rodar.
+
+```tsx
+import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/extend-expect';
+```
+
+Com isto feito, precisamos colocá-lo nas configurações do Jest.
+Adicione a propriedade `setupFilesAfterEnv` às configurações do Jest:
+
+```python
+"setupFilesAfterEnv": [
+  "<rootDir>/src/setupTests.ts"
+]
 ```
