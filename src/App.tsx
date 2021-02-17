@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { NotFoundPage } from './components/pages';
 import { AppRoutes, RoutesModel } from './routes';
 import { Loading } from './components/utils/loading';
+import { ShoppingListProvider } from './contexts';
 
 const ContainerDiv = styled.div`
   height: 100%;
@@ -14,17 +15,19 @@ function App() {
   return (
     <StylesProvider injectFirst>
       <ContainerDiv className="App">
-        <Router>
-          <Suspense fallback={<Loading>Carregando...</Loading>}>
-            <Switch>
-              {AppRoutes &&
-                AppRoutes.map((route: RoutesModel) => (
-                  <Route key={route.path} path={route.path} exact component={route.component} />
-                ))}
-              <Route component={NotFoundPage} />
-            </Switch>
-          </Suspense>
-        </Router>
+        <ShoppingListProvider>
+          <Router>
+            <Suspense fallback={<Loading>Carregando...</Loading>}>
+              <Switch>
+                {AppRoutes &&
+                  AppRoutes.map((route: RoutesModel) => (
+                    <Route key={route.path} path={route.path} exact component={route.component} />
+                  ))}
+                <Route component={NotFoundPage} />
+              </Switch>
+            </Suspense>
+          </Router>
+        </ShoppingListProvider>
       </ContainerDiv>
     </StylesProvider>
   );

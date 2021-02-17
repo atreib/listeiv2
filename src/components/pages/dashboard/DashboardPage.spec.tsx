@@ -1,7 +1,14 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { DashboardPage as Sut } from './DashboardPage';
+import { DashboardPage } from './DashboardPage';
+import { ShoppingListProvider } from './../../../contexts';
+
+const Sut = () => (
+  <ShoppingListProvider>
+    <DashboardPage />
+  </ShoppingListProvider>
+);
 
 describe('Dashboard page testes', () => {
   it('Should render correctly', () => {

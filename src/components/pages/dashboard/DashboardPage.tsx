@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Helmet } from 'react-helmet';
 import {
   ShoppingList,
@@ -10,13 +10,14 @@ import {
   AppButton,
   AppList,
 } from './DashboardPage.styles';
-import { ProductModel } from './../../../models';
-import { generate } from './../../../helpers/uuid';
 import { colors } from './../../../helpers/theme';
+import { ShoppingListContext } from './../../../contexts';
 
 export const DashboardPage = () => {
-  const [shoppingList, setShoppingList] = useState<ProductModel[]>();
   const [newProduct, setNewProduct] = useState<string>('');
+  const { products, addProduct, increaseProductQuantity, decreaseProductQuantity, removeProduct } = useContext(
+    ShoppingListContext,
+  );
 
   /**
    * Adds a new product to the shopping list state
@@ -24,16 +25,7 @@ export const DashboardPage = () => {
    */
   const onAddNewProduct = () => {
     if (newProduct && newProduct !== '') {
-      const newitem = {
-        id: generate(),
-        label: newProduct,
-        quantity: 1,
-        unityPrice: 0.0,
-        totalPrice: 0.0,
-      };
-
-      if (shoppingList) setShoppingList([...shoppingList, newitem]);
-      if (!shoppingList) setShoppingList([newitem]);
+      addProduct(newProduct);
       setNewProduct('');
     }
   };
@@ -42,8 +34,8 @@ export const DashboardPage = () => {
    * Removes a product on state
    * @param id: (number) id of the removed product
    */
-  const removeProduct = (id: string) => {
-    if (shoppingList) setShoppingList(shoppingList.filter((x) => x.id !== id));
+  const onRemoveProduct = (id: string) => {
+    removeProduct(id);
   };
 
   /**
@@ -52,18 +44,8 @@ export const DashboardPage = () => {
    * @param id: (string) id of the product being modified
    */
   const changeProductQuantity = (increase: boolean, id: string) => {
-    if (shoppingList)
-      setShoppingList(
-        shoppingList.map((x) => {
-          if (x.id === id) {
-            return {
-              ...x,
-              quantity: increase ? x.quantity + 1 : x.quantity === 1 ? 1 : x.quantity - 1,
-            };
-          }
-          return x;
-        }),
-      );
+    if (increase) increaseProductQuantity(id);
+    if (!increase) decreaseProductQuantity(id);
   };
 
   return (
@@ -75,19 +57,19 @@ export const DashboardPage = () => {
       </Helmet>
       <ListTitle>Lista de compras</ListTitle>
       <ListWrapper>
-        {shoppingList && (
+        {products && (
           <AppList>
-            {shoppingList.map((product) => (
+            {products.map((product) => (
               <Product
                 changeProductQuantity={changeProductQuantity}
-                onRemoveProduct={removeProduct}
+                onRemoveProduct={onRemoveProduct}
                 product={product}
                 key={product.id}
               />
             ))}
           </AppList>
         )}
-        {(!shoppingList || shoppingList.length === 0) && 'Lista vazia'}
+        {(!products || products.length === 0) && 'Lista vazia'}
       </ListWrapper>
       <NewProduct>
         <AppInput
