@@ -2,7 +2,7 @@ import React from 'react';
 import { ProductModel } from '../../../models';
 import styled from 'styled-components';
 import { AppIconButton } from './../../utils/buttons';
-import { AddIcon, RemoveIcon } from './../../utils/icons';
+import { PlusIcon, MinusIcon } from './../../utils/icons';
 import { colors } from '../../../helpers/theme';
 
 interface ComponentProps {
@@ -51,7 +51,7 @@ export const Quantity = ({ product, changeProductQuantity }: ComponentProps) => 
           testId="decreaseButton"
           onClick={() => decreaseQuantity()}
         >
-          <RemoveIcon />
+          <MinusIcon />
         </AppIconButton>
       </DecreaseButton>
       <QuantityLabel data-testid="quantity">{product.quantity}</QuantityLabel>
@@ -63,7 +63,7 @@ export const Quantity = ({ product, changeProductQuantity }: ComponentProps) => 
           testId="increaseButton"
           onClick={() => increaseQuantity()}
         >
-          <AddIcon />
+          <PlusIcon />
         </AppIconButton>
       </IncreaseButton>
     </QuantitySelector>

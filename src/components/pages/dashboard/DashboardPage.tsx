@@ -9,7 +9,7 @@ import {
   AppInput,
   AppButton,
   AppList,
-  NoteAddIcon,
+  NewListIcon,
 } from './DashboardPage.styles';
 import { colors } from './../../../helpers/theme';
 import { ShoppingListContext } from './../../../contexts';
@@ -60,7 +60,7 @@ export const DashboardPage = () => {
         <div>Lista de compras</div>
         <div>
           <AppButton bgColor={colors.primary} fontColor={colors.contrastPrimary} onClick={() => console.log('clicou')}>
-            <NoteAddIcon />
+            <NewListIcon />
           </AppButton>
         </div>
       </ListTitle>

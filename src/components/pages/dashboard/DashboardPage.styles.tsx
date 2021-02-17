@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { colors } from '../../../helpers/theme';
 
 export { AppInput, AppButton, AppList } from './../../utils';
-export { NoteAddIcon } from './../../utils/icons';
+export { NewListIcon } from './../../utils/icons';
 export { Product } from './Product';
 
 export const ShoppingList = styled.div`
