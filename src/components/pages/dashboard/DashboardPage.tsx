@@ -81,7 +81,7 @@ export const DashboardPage = () => {
             ))}
           </AppList>
         )}
-        {!shoppingList && 'Lista vazia'}
+        {(!shoppingList || shoppingList.length === 0) && 'Lista vazia'}
       </ListWrapper>
       <NewProduct>
         <AppInput
@@ -92,7 +92,7 @@ export const DashboardPage = () => {
           setValue={setNewProduct}
         />
         <AppButton
-          data-testid="btnAddProduct"
+          testId="btnAddProduct"
           bgColor={colors.primary}
           fontColor={colors.contrastPrimary}
           onClick={onAddNewProduct}

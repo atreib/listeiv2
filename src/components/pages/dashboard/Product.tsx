@@ -19,10 +19,10 @@ const ProductLabel = styled.div`
 
 export const Product = ({ product, onRemoveProduct, changeProductQuantity }: ComponentProps) => {
   const [checked, setChecked] = useState(false);
-  const checkbox = <AppCheckbox edge="end" setChecked={setChecked} checked={checked} />;
+  const checkbox = <AppCheckbox testId="productCheckbox" edge="end" setChecked={setChecked} checked={checked} />;
 
   const removeProductIconButton = (
-    <AppIconButton onClick={() => onRemoveProduct(product.id)}>
+    <AppIconButton testId="btnRemoveProduct" onClick={() => onRemoveProduct(product.id)}>
       <DeleteIcon />
     </AppIconButton>
   );
@@ -38,7 +38,7 @@ export const Product = ({ product, onRemoveProduct, changeProductQuantity }: Com
     >
       <ProductLabel>
         <Quantity product={product} changeProductQuantity={changeProductQuantity} />
-        <div>
+        <div data-testid="productLabel">
           {checked ? (
             <s>
               (R$ {product.unityPrice}) {product.label}

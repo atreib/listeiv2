@@ -13,6 +13,7 @@ interface ComponentProps {
   disabled?: boolean;
   fullWidth?: boolean;
   size?: 'small' | 'medium' | 'large';
+  testId?: string;
 }
 
 interface ButtonProps {
@@ -35,6 +36,7 @@ const StyledButton = styled(Button)<ButtonProps>`
  * @param disabled?: (boolean) Is input disabled?
  * @param fullWidth?: (boolean) Should input fill full width?
  * @param size?: ("small" | "medium" | "large") button size
+ * @param testId?: (string) id used on automated tests
  */
 export const AppButton = ({
   children,
@@ -45,6 +47,7 @@ export const AppButton = ({
   disabled = false,
   fullWidth = false,
   size = 'medium',
+  testId = '',
 }: ComponentProps) => {
   return (
     <StyledButton
@@ -56,6 +59,7 @@ export const AppButton = ({
       size={size}
       startIcon={icon}
       variant="contained"
+      data-testid={testId}
     >
       {children}
     </StyledButton>
