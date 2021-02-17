@@ -16,9 +16,14 @@ import { ShoppingListContext } from './../../../contexts';
 
 export const DashboardPage = () => {
   const [newProduct, setNewProduct] = useState<string>('');
-  const { products, addProduct, increaseProductQuantity, decreaseProductQuantity, removeProduct } = useContext(
-    ShoppingListContext,
-  );
+  const {
+    products,
+    addProduct,
+    increaseProductQuantity,
+    decreaseProductQuantity,
+    removeProduct,
+    startNewList,
+  } = useContext(ShoppingListContext);
 
   /**
    * Adds a new product to the shopping list state
@@ -49,6 +54,13 @@ export const DashboardPage = () => {
     if (!increase) decreaseProductQuantity(id);
   };
 
+  /**
+   * Start a new shopping list
+   */
+  const onStartNewList = () => {
+    startNewList();
+  };
+
   return (
     <ShoppingList>
       <Helmet>
@@ -59,7 +71,7 @@ export const DashboardPage = () => {
       <ListTitle>
         <div>Lista de compras</div>
         <div>
-          <AppButton bgColor={colors.primary} fontColor={colors.contrastPrimary} onClick={() => console.log('clicou')}>
+          <AppButton bgColor={colors.primary} fontColor={colors.contrastPrimary} onClick={() => onStartNewList()}>
             <NewListIcon />
           </AppButton>
         </div>
