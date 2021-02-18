@@ -84,7 +84,7 @@ export const DashboardPage = () => {
     <ShoppingList>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Lista de compras</title>
+        <title>Listei</title>
         <style>{`body { background-color: ${colors.background}; color: ${colors.contrastBackground}; }`}</style>
       </Helmet>
       <ListTitle>
