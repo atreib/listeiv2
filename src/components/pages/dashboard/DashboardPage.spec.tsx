@@ -20,7 +20,7 @@ describe('Dashboard page testes', () => {
     expect(getByText(/Lista de compras/i)).toBeInTheDocument();
   });
 
-  it('Should start a empty shopping list after clicking on start new list', () => {
+  it('Should start a empty shopping list after confirming to start new list', () => {
     const { getByPlaceholderText, getByText, getByTestId } = render(<Sut />);
     userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock product name');
     userEvent.click(getByText('Add'));
@@ -29,7 +29,26 @@ describe('Dashboard page testes', () => {
     expect(startNewListBtn).toBeTruthy();
     if (startNewListBtn) {
       userEvent.click(startNewListBtn);
+      expect(getByTestId('newListConfirm')).toBeInTheDocument();
+      expect(getByTestId('confirmDialogButton')).toBeInTheDocument();
+      userEvent.click(getByTestId('confirmDialogButton'));
       expect(getByText(/Lista vazia/i)).toBeInTheDocument();
+    }
+  });
+
+  it('Should not start a empty shopping list after cancelling the start new list', () => {
+    const { getByPlaceholderText, getByText, getByTestId } = render(<Sut />);
+    userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock product name');
+    userEvent.click(getByText('Add'));
+    expect(screen.getByText(/Mock product name/i)).toBeInTheDocument();
+    const startNewListBtn = getByTestId('startNewListBtn');
+    expect(startNewListBtn).toBeTruthy();
+    if (startNewListBtn) {
+      userEvent.click(startNewListBtn);
+      expect(getByTestId('newListConfirm')).toBeInTheDocument();
+      expect(getByTestId('cancelDialogBtn')).toBeInTheDocument();
+      userEvent.click(getByTestId('cancelDialogBtn'));
+      expect(getByText(/Mock product name/i)).toBeInTheDocument();
     }
   });
 
@@ -110,7 +129,7 @@ describe('Dashboard page testes', () => {
     }
   });
 
-  it('Should remove the last product after clicking on delete button and show empty list', () => {
+  it('Should remove the last product after removing and confirming then show empty list', () => {
     const { getByTestId, getByText } = render(<Sut />);
     expect(getByText(/Lista vazia/i)).toBeInTheDocument();
     userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'mocked_product_name');
@@ -120,7 +139,27 @@ describe('Dashboard page testes', () => {
     expect(removeProductBtn).toBeTruthy();
     if (removeProductBtn) {
       userEvent.click(removeProductBtn);
+      expect(getByTestId('removalConfirm')).toBeInTheDocument();
+      expect(getByTestId('confirmDialogButton')).toBeInTheDocument();
+      userEvent.click(getByTestId('confirmDialogButton'));
       expect(getByText(/Lista vazia/i)).toBeInTheDocument();
+    }
+  });
+
+  it('Should not remove the last product after canceling the confirm dialog', () => {
+    const { getByTestId, getByText } = render(<Sut />);
+    expect(getByText(/Lista vazia/i)).toBeInTheDocument();
+    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'mocked_product_name');
+    userEvent.click(screen.getByText('Add'));
+    expect(screen.getAllByText(/mocked_product_name/i).length).toBe(1);
+    const removeProductBtn = getByTestId('btnRemoveProduct');
+    expect(removeProductBtn).toBeTruthy();
+    if (removeProductBtn) {
+      userEvent.click(removeProductBtn);
+      expect(getByTestId('removalConfirm')).toBeInTheDocument();
+      expect(getByTestId('cancelDialogBtn')).toBeInTheDocument();
+      userEvent.click(getByTestId('cancelDialogBtn'));
+      expect(screen.getAllByText(/mocked_product_name/i).length).toBe(1);
     }
   });
 

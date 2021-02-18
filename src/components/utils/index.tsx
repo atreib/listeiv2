@@ -3,3 +3,4 @@ export * from './inputs';
 export * from './buttons';
 export * from './list';
 export * from './listItem';
+export * from './dialogs';
