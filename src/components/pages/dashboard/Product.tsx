@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Quantity } from './Quantity';
 import { ProductModel } from '../../../models';
-import { AppListItem, AppIconButton, AppCheckbox } from './../../utils';
+import { AppListItem, AppIconButton, AppCheckbox, AppConfirmDialog } from './../../utils';
 import { DeleteIcon } from './../../utils/icons';
 import { colors } from '../../../helpers/theme';
 import { AppPromptDialog } from '../../utils/dialogs/PromptDialog';
@@ -38,6 +38,7 @@ const PriceLabel = styled.div`
 export const Product = ({ product, onRemoveProduct, changeProductQuantity, changeProductPrice }: ComponentProps) => {
   const [checked, setChecked] = useState(false);
   const [isPromptPriceOpened, setIsPromptPriceOpened] = useState(false);
+  const [isRemovalConfirmDialogOpened, setIsRemovalConfirmDialogOpened] = useState(false);
 
   const onCheckboxClick = () => {
     if (!checked) setIsPromptPriceOpened(true);
@@ -59,14 +60,30 @@ export const Product = ({ product, onRemoveProduct, changeProductQuantity, chang
       bgColor={colors.background}
       fontColor={colors.danger}
       testId="btnRemoveProduct"
-      onClick={() => onRemoveProduct(product.id)}
+      onClick={() => setIsRemovalConfirmDialogOpened(true)}
     >
       <DeleteIcon />
     </AppIconButton>
   );
 
+  const confirmRemoveProduct = () => {
+    onRemoveProduct(product.id);
+    setIsRemovalConfirmDialogOpened(false);
+  };
+
   return (
     <>
+      {isRemovalConfirmDialogOpened && (
+        <AppConfirmDialog
+          title="Você tem certeza?"
+          description="Você deseja remover este produto da sua lista de compras?"
+          dialogOpen={isRemovalConfirmDialogOpened}
+          setDialogOpen={setIsRemovalConfirmDialogOpened}
+          successBtnText="Remover produto"
+          testId="removalConfirm"
+          fnSuccess={() => confirmRemoveProduct()}
+        />
+      )}
       {isPromptPriceOpened && (
         <AppPromptDialog
           title="Adicionar preço ao produto"
