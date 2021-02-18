@@ -99,6 +99,7 @@ const ShoppingListProvider = ({ children }: ComponentProps) => {
     if (localStorageHistory && localStorageHistory !== '') history = JSON.parse(localStorageHistory);
     history.push({
       id: generate(),
+      date: new Date(),
       products: products,
     });
     localStorage.setItem('shoppingListHistory', JSON.stringify(history));
