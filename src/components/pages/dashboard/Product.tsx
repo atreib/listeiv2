@@ -77,9 +77,10 @@ export const Product = ({ product, onRemoveProduct, changeProductQuantity, chang
           dialogOpen={isPromptPriceOpened}
           setDialogOpen={setIsPromptPriceOpened}
           successBtnText="Anotar preço"
+          testId="pricePrompt"
           fnSuccess={(typedPrice: string) => {
             if (typedPrice) {
-              const price = typedPrice?.replace(',', '.');
+              const price = typedPrice.replace(',', '.');
               const numberPrice = Number(price);
               if (!isNaN(numberPrice)) {
                 changeProductPrice(numberPrice, product.id);

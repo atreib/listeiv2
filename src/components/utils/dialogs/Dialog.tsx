@@ -14,6 +14,7 @@ interface ComponentProps {
   setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
   ExtraButtons?: (() => JSX.Element)[];
   cancelBtnText?: string;
+  testId?: string;
 }
 
 const DialogContentWrapper = styled(DialogContent)`
@@ -24,12 +25,13 @@ const DialogContentWrapper = styled(DialogContent)`
 
 /**
  * Creates our own dialog component, based on Material UI's dialog
- * @param title: title of our dialog component
- * @param children: our dialog content (as a child element - react element)
- * @param dialogOpen: "is dialog opened?"
- * @param setDialogOpen: react hooks "set function" to "is dialog opened?"
- * @param ExtraButtons?: (optional) array of functions that return a JSX.Element (our dialog buttons)
- * @param cancelBtnText?: (optional) text of the cancel button
+ * @param title: (string) title of our dialog component
+ * @param children: (ReactChild | ReactChildren) our dialog content (as a child element - react element)
+ * @param dialogOpen: (boolean) "is dialog opened?"
+ * @param setDialogOpen: (React.Dispatch<React.SetStateAction<boolean>>) react set state to "is dialog opened?"
+ * @param ExtraButtons?: (Array<() => JSX.Element>) array of functions that return a JSX.Element (our dialog buttons)
+ * @param cancelBtnText?: (string) text of the cancel button
+ * @param testId?: (string) text of the cancel button
  */
 export const AppDialog = ({
   title,
@@ -38,6 +40,7 @@ export const AppDialog = ({
   setDialogOpen,
   ExtraButtons,
   cancelBtnText,
+  testId = '',
 }: ComponentProps) => {
   if (!cancelBtnText) cancelBtnText = 'Fechar';
 
@@ -48,6 +51,7 @@ export const AppDialog = ({
   return (
     <div>
       <Dialog
+        data-testid={testId}
         fullWidth={true}
         maxWidth={'sm'}
         open={dialogOpen}
@@ -57,7 +61,12 @@ export const AppDialog = ({
         <DialogTitle>{title}</DialogTitle>
         <DialogContentWrapper dividers={true}>{children}</DialogContentWrapper>
         <DialogActions>
-          <AppButton bgColor={colors.background} fontColor={colors.contrastBackground} onClick={handleClose}>
+          <AppButton
+            testId="cancelDialogBtn"
+            bgColor={colors.background}
+            fontColor={colors.contrastBackground}
+            onClick={handleClose}
+          >
             {cancelBtnText}
           </AppButton>
           {ExtraButtons && ExtraButtons.map((Btn, i) => <Btn key={i} />)}

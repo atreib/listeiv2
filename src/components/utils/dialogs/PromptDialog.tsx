@@ -16,6 +16,7 @@ interface ComponentProps {
   defaultValue?: string;
   placeholder?: string;
   type?: 'text' | 'number';
+  testId?: string;
 }
 
 const InputWrapper = styled.div`
@@ -34,6 +35,7 @@ const InputWrapper = styled.div`
  * @param defaultValue?: (string) input default value
  * @param placeholder?: (string) placeholder of the prompt input
  * @param type?: ('text' | 'number') type of the prompt input
+ * @param testId?: (string) optional id for testing purposal
  */
 export const AppPromptDialog = ({
   title,
@@ -46,10 +48,16 @@ export const AppPromptDialog = ({
   defaultValue,
   placeholder,
   type = 'text',
+  testId = '',
 }: ComponentProps) => {
   const [value, setValue] = useState<string>(defaultValue ?? '');
   const BtnConfirm = () => (
-    <AppButton bgColor={colors.primary} fontColor={colors.contrastPrimary} onClick={() => fnSuccess(value)}>
+    <AppButton
+      testId="confirmNewPriceButton"
+      bgColor={colors.primary}
+      fontColor={colors.contrastPrimary}
+      onClick={() => fnSuccess(value)}
+    >
       {successBtnText}
     </AppButton>
   );
@@ -57,6 +65,7 @@ export const AppPromptDialog = ({
   return (
     <div>
       <AppDialog
+        testId={testId}
         title={title}
         dialogOpen={dialogOpen}
         setDialogOpen={setDialogOpen}
@@ -67,6 +76,7 @@ export const AppPromptDialog = ({
           <div>{description}</div>
           <InputWrapper>
             <AppInput
+              testId="priceInput"
               type={type}
               placeholder={placeholder}
               fullWidth={true}
