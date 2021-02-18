@@ -20,7 +20,7 @@ describe('Dashboard page testes', () => {
     expect(getByText(/Lista de compras/i)).toBeInTheDocument();
   });
 
-  it('Should start a empty shopping list after clicking on start new list', () => {
+  it('Should start a empty shopping list after confirming to start new list', () => {
     const { getByPlaceholderText, getByText, getByTestId } = render(<Sut />);
     userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock product name');
     userEvent.click(getByText('Add'));
@@ -29,7 +29,26 @@ describe('Dashboard page testes', () => {
     expect(startNewListBtn).toBeTruthy();
     if (startNewListBtn) {
       userEvent.click(startNewListBtn);
+      expect(getByTestId('newListConfirm')).toBeInTheDocument();
+      expect(getByTestId('confirmDialogButton')).toBeInTheDocument();
+      userEvent.click(getByTestId('confirmDialogButton'));
       expect(getByText(/Lista vazia/i)).toBeInTheDocument();
+    }
+  });
+
+  it('Should not start a empty shopping list after cancelling the start new list', () => {
+    const { getByPlaceholderText, getByText, getByTestId } = render(<Sut />);
+    userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock product name');
+    userEvent.click(getByText('Add'));
+    expect(screen.getByText(/Mock product name/i)).toBeInTheDocument();
+    const startNewListBtn = getByTestId('startNewListBtn');
+    expect(startNewListBtn).toBeTruthy();
+    if (startNewListBtn) {
+      userEvent.click(startNewListBtn);
+      expect(getByTestId('newListConfirm')).toBeInTheDocument();
+      expect(getByTestId('cancelDialogBtn')).toBeInTheDocument();
+      userEvent.click(getByTestId('cancelDialogBtn'));
+      expect(getByText(/Mock product name/i)).toBeInTheDocument();
     }
   });
 
