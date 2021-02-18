@@ -22,6 +22,10 @@ const StyledButton = styled(IconButton)<ButtonProps>`
   ${({ bgcolor }) =>
     bgcolor && `background-color: ${fade(bgcolor, 0.8)}; &:hover, &:focus { background-color: ${bgcolor}; } `}
   ${({ fontcolor }) => fontcolor && `color: ${fade(fontcolor, 1)};`}
+
+  &.MuiIconButton-sizeSmall {
+    padding: 0px;
+  }
 `;
 
 /**

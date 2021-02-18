@@ -3,6 +3,7 @@ export const colors = {
   contrastPrimary: '#FFFFFF',
   background: '#DBE4EE',
   contrastBackground: '#000000',
+  contrastBackgroundLighter: '#555555',
   secondary: '#3E7CB1',
   contrastSecondary: '#FFFFFF',
   danger: '#C81D25',

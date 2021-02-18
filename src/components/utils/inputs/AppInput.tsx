@@ -13,6 +13,7 @@ interface ComponentProps {
   fullWidth?: boolean;
   error?: boolean;
   errorHelperText?: string;
+  testId?: string;
 }
 
 const StyledTextField = styled(TextField)`
@@ -41,6 +42,7 @@ const StyledTextField = styled(TextField)`
  * @param fullWidth?: (boolean) Should input fill full width?
  * @param error?: (boolean) Is input with error?
  * @param errorHelperText?: (string) Description of input error
+ * @param testId?: (string) Optional id for testing purpose
  */
 export const AppInput = ({
   label,
@@ -52,9 +54,11 @@ export const AppInput = ({
   fullWidth = false,
   error = false,
   errorHelperText = '',
+  testId = '',
 }: ComponentProps) => {
   return (
     <StyledTextField
+      data-testid={testId}
       error={error}
       helperText={errorHelperText}
       required={required}

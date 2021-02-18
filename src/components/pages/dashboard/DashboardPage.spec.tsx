@@ -40,6 +40,14 @@ describe('Dashboard page testes', () => {
     expect(screen.getByText(/Mock product name/i)).toBeInTheDocument();
   });
 
+  it('Should show product name and product price with current info after adding a product', () => {
+    render(<Sut />);
+    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
+    userEvent.click(screen.getByText('Add'));
+    expect(screen.getByText(/Mock product name/i)).toBeInTheDocument();
+    expect(screen.getByText('R$ 0,00')).toBeInTheDocument();
+  });
+
   it('Should list all products added to shopping list', () => {
     render(<Sut />);
     userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
@@ -128,6 +136,48 @@ describe('Dashboard page testes', () => {
       const productLbl = getByTestId('productLabel');
       expect(productLbl).toBeTruthy();
       if (productLbl) expect(productLbl.innerHTML.indexOf('<s>')).toBeGreaterThanOrEqual(0);
+    }
+  });
+
+  it('Should open price prompt after checking a product', () => {
+    const { getByTestId, getByText } = render(<Sut />);
+    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
+    userEvent.click(screen.getByText('Add'));
+    const productCheckbox = getByTestId('productCheckbox').querySelector('input[type="checkbox"]') as HTMLInputElement;
+    if (productCheckbox) {
+      userEvent.click(productCheckbox);
+      expect(getByTestId('pricePrompt')).toBeTruthy();
+      expect(getByText('Adicionar preço ao produto')).toBeTruthy();
+    }
+  });
+
+  it('Should keep same price after cancelling price prompt', () => {
+    const { getByTestId, getByText } = render(<Sut />);
+    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
+    userEvent.click(screen.getByText('Add'));
+    const productCheckbox = getByTestId('productCheckbox').querySelector('input[type="checkbox"]') as HTMLInputElement;
+    if (productCheckbox) {
+      userEvent.click(productCheckbox);
+      expect(getByTestId('priceInput')).toBeTruthy();
+      expect(getByTestId('cancelDialogBtn')).toBeTruthy();
+      userEvent.type(getByTestId('priceInput'), '2');
+      userEvent.click(getByTestId('cancelDialogBtn'));
+      expect(getByText('R$ 0,00')).toBeTruthy();
+    }
+  });
+
+  it('Should update price after confirming price prompt', () => {
+    const { getByTestId, getByText } = render(<Sut />);
+    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
+    userEvent.click(screen.getByText('Add'));
+    const productCheckbox = getByTestId('productCheckbox').querySelector('input[type="checkbox"]') as HTMLInputElement;
+    if (productCheckbox) {
+      userEvent.click(productCheckbox);
+      const priceInput = getByTestId('priceInput').querySelector('input') as HTMLInputElement;
+      userEvent.type(priceInput, '2');
+      expect(getByTestId('confirmNewPriceButton')).toBeTruthy();
+      userEvent.click(getByTestId('confirmNewPriceButton'));
+      expect(getByText('R$ 2,00')).toBeTruthy();
     }
   });
 });
