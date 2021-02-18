@@ -14,8 +14,10 @@ import {
 } from './DashboardPage.styles';
 import { colors } from './../../../helpers/theme';
 import { ShoppingListContext } from './../../../contexts';
+import { AppConfirmDialog } from '../../utils';
 
 export const DashboardPage = () => {
+  const [isStartNewListConfirmDialogOpened, setIsStartNewListConfirmDialogOpened] = useState(false);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [newProduct, setNewProduct] = useState<string>('');
   const {
@@ -71,6 +73,7 @@ export const DashboardPage = () => {
    */
   const onStartNewList = () => {
     startNewList();
+    setIsStartNewListConfirmDialogOpened(false);
   };
 
   useEffect(() => {
@@ -81,60 +84,73 @@ export const DashboardPage = () => {
   }, [products]);
 
   return (
-    <ShoppingList>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>Listei</title>
-        <style>{`body { background-color: ${colors.background}; color: ${colors.contrastBackground}; }`}</style>
-      </Helmet>
-      <ListTitle>
-        <div>Lista de compras</div>
-        <div>
+    <>
+      {isStartNewListConfirmDialogOpened && (
+        <AppConfirmDialog
+          title="Você tem certeza?"
+          description="Você deseja iniciar uma nova lista de compras vazia?"
+          dialogOpen={isStartNewListConfirmDialogOpened}
+          setDialogOpen={setIsStartNewListConfirmDialogOpened}
+          successBtnText="Nova lista"
+          testId="newListConfirm"
+          fnSuccess={() => onStartNewList()}
+        />
+      )}
+      <ShoppingList>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Listei</title>
+          <style>{`body { background-color: ${colors.background}; color: ${colors.contrastBackground}; }`}</style>
+        </Helmet>
+        <ListTitle>
+          <div>Lista de compras</div>
+          <div>
+            <AppButton
+              testId="startNewListBtn"
+              bgColor={colors.primary}
+              fontColor={colors.contrastPrimary}
+              onClick={() => setIsStartNewListConfirmDialogOpened(true)}
+            >
+              <NewListIcon />
+            </AppButton>
+          </div>
+        </ListTitle>
+        <ListWrapper>
+          {products && (
+            <AppList>
+              {products.map((product) => (
+                <Product
+                  changeProductPrice={onChangeProductPrice}
+                  changeProductQuantity={changeProductQuantity}
+                  onRemoveProduct={onRemoveProduct}
+                  product={product}
+                  key={product.id}
+                />
+              ))}
+            </AppList>
+          )}
+          {(!products || products.length === 0) && 'Lista vazia'}
+        </ListWrapper>
+        <TotalPriceLabel>Total: R$ {totalPrice.toFixed(2).replace('.', ',')}</TotalPriceLabel>
+        <NewProduct>
+          <AppInput
+            data-testid="inputProduct"
+            label="Novo produto"
+            placeholder="Digite um produto"
+            value={newProduct}
+            setValue={setNewProduct}
+          />
           <AppButton
-            testId="startNewListBtn"
+            testId="btnAddProduct"
             bgColor={colors.primary}
             fontColor={colors.contrastPrimary}
-            onClick={() => onStartNewList()}
+            onClick={onAddNewProduct}
           >
-            <NewListIcon />
+            Add
           </AppButton>
-        </div>
-      </ListTitle>
-      <ListWrapper>
-        {products && (
-          <AppList>
-            {products.map((product) => (
-              <Product
-                changeProductPrice={onChangeProductPrice}
-                changeProductQuantity={changeProductQuantity}
-                onRemoveProduct={onRemoveProduct}
-                product={product}
-                key={product.id}
-              />
-            ))}
-          </AppList>
-        )}
-        {(!products || products.length === 0) && 'Lista vazia'}
-      </ListWrapper>
-      <TotalPriceLabel>Total: R$ {totalPrice.toFixed(2).replace('.', ',')}</TotalPriceLabel>
-      <NewProduct>
-        <AppInput
-          data-testid="inputProduct"
-          label="Novo produto"
-          placeholder="Digite um produto"
-          value={newProduct}
-          setValue={setNewProduct}
-        />
-        <AppButton
-          testId="btnAddProduct"
-          bgColor={colors.primary}
-          fontColor={colors.contrastPrimary}
-          onClick={onAddNewProduct}
-        >
-          Add
-        </AppButton>
-      </NewProduct>
-    </ShoppingList>
+        </NewProduct>
+      </ShoppingList>
+    </>
   );
 };
 
