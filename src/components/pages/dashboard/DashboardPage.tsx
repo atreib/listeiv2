@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import {
   ShoppingList,
@@ -10,11 +10,13 @@ import {
   AppButton,
   AppList,
   NewListIcon,
+  TotalPriceLabel,
 } from './DashboardPage.styles';
 import { colors } from './../../../helpers/theme';
 import { ShoppingListContext } from './../../../contexts';
 
 export const DashboardPage = () => {
+  const [totalPrice, setTotalPrice] = useState<number>(0);
   const [newProduct, setNewProduct] = useState<string>('');
   const {
     products,
@@ -23,6 +25,7 @@ export const DashboardPage = () => {
     decreaseProductQuantity,
     removeProduct,
     startNewList,
+    changeProductPrice,
   } = useContext(ShoppingListContext);
 
   /**
@@ -55,11 +58,27 @@ export const DashboardPage = () => {
   };
 
   /**
+   * Change product price on state
+   * @param price: (number) the new product price
+   * @param id: (string) id of the product being modified
+   */
+  const onChangeProductPrice = (price: number, id: string) => {
+    changeProductPrice(price, id);
+  };
+
+  /**
    * Start a new shopping list
    */
   const onStartNewList = () => {
     startNewList();
   };
+
+  useEffect(() => {
+    if (products && products.length > 0) {
+      const totalPriceObject = products.reduce((x, y) => ({ ...x, totalPrice: x.totalPrice + y.totalPrice }));
+      if (totalPriceObject) setTotalPrice(totalPriceObject.totalPrice);
+    }
+  }, [products]);
 
   return (
     <ShoppingList>
@@ -86,6 +105,7 @@ export const DashboardPage = () => {
           <AppList>
             {products.map((product) => (
               <Product
+                changeProductPrice={onChangeProductPrice}
                 changeProductQuantity={changeProductQuantity}
                 onRemoveProduct={onRemoveProduct}
                 product={product}
@@ -96,6 +116,7 @@ export const DashboardPage = () => {
         )}
         {(!products || products.length === 0) && 'Lista vazia'}
       </ListWrapper>
+      <TotalPriceLabel>Total: R$ {totalPrice.toFixed(2).replace('.', ',')}</TotalPriceLabel>
       <NewProduct>
         <AppInput
           data-testid="inputProduct"

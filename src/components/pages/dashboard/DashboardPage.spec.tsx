@@ -40,6 +40,14 @@ describe('Dashboard page testes', () => {
     expect(screen.getByText(/Mock product name/i)).toBeInTheDocument();
   });
 
+  it('Should show product name and product price with current info after adding a product', () => {
+    render(<Sut />);
+    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
+    userEvent.click(screen.getByText('Add'));
+    expect(screen.getByText(/Mock product name/i)).toBeInTheDocument();
+    expect(screen.getByText('R$ 0,00')).toBeInTheDocument();
+  });
+
   it('Should list all products added to shopping list', () => {
     render(<Sut />);
     userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
