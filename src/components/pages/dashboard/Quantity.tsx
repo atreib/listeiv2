@@ -14,7 +14,7 @@ const QuantitySelector = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0px 16px 0px 8px;
+  padding: 0px 8px 0px 4px;
 `;
 
 const QuantityLabel = styled.div`

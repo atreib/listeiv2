@@ -20,7 +20,7 @@ describe('Dashboard page testes', () => {
     expect(getByText(/Lista de compras/i)).toBeInTheDocument();
   });
 
-  it('Should start a empty shopping list after clicking on start new list', () => {
+  it('Should start a empty shopping list after confirming to start new list', () => {
     const { getByPlaceholderText, getByText, getByTestId } = render(<Sut />);
     userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock product name');
     userEvent.click(getByText('Add'));
@@ -29,7 +29,26 @@ describe('Dashboard page testes', () => {
     expect(startNewListBtn).toBeTruthy();
     if (startNewListBtn) {
       userEvent.click(startNewListBtn);
+      expect(getByTestId('newListConfirm')).toBeInTheDocument();
+      expect(getByTestId('confirmDialogButton')).toBeInTheDocument();
+      userEvent.click(getByTestId('confirmDialogButton'));
       expect(getByText(/Lista vazia/i)).toBeInTheDocument();
+    }
+  });
+
+  it('Should not start a empty shopping list after cancelling the start new list', () => {
+    const { getByPlaceholderText, getByText, getByTestId } = render(<Sut />);
+    userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock product name');
+    userEvent.click(getByText('Add'));
+    expect(screen.getByText(/Mock product name/i)).toBeInTheDocument();
+    const startNewListBtn = getByTestId('startNewListBtn');
+    expect(startNewListBtn).toBeTruthy();
+    if (startNewListBtn) {
+      userEvent.click(startNewListBtn);
+      expect(getByTestId('newListConfirm')).toBeInTheDocument();
+      expect(getByTestId('cancelDialogBtn')).toBeInTheDocument();
+      userEvent.click(getByTestId('cancelDialogBtn'));
+      expect(getByText(/Mock product name/i)).toBeInTheDocument();
     }
   });
 
@@ -38,6 +57,14 @@ describe('Dashboard page testes', () => {
     userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
     userEvent.click(screen.getByText('Add'));
     expect(screen.getByText(/Mock product name/i)).toBeInTheDocument();
+  });
+
+  it('Should show product name and product price with current info after adding a product', () => {
+    render(<Sut />);
+    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
+    userEvent.click(screen.getByText('Add'));
+    expect(screen.getByText(/Mock product name/i)).toBeInTheDocument();
+    expect(screen.getByText('R$ 0,00')).toBeInTheDocument();
   });
 
   it('Should list all products added to shopping list', () => {
@@ -102,7 +129,7 @@ describe('Dashboard page testes', () => {
     }
   });
 
-  it('Should remove the last product after clicking on delete button and show empty list', () => {
+  it('Should remove the last product after removing and confirming then show empty list', () => {
     const { getByTestId, getByText } = render(<Sut />);
     expect(getByText(/Lista vazia/i)).toBeInTheDocument();
     userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'mocked_product_name');
@@ -112,7 +139,27 @@ describe('Dashboard page testes', () => {
     expect(removeProductBtn).toBeTruthy();
     if (removeProductBtn) {
       userEvent.click(removeProductBtn);
+      expect(getByTestId('removalConfirm')).toBeInTheDocument();
+      expect(getByTestId('confirmDialogButton')).toBeInTheDocument();
+      userEvent.click(getByTestId('confirmDialogButton'));
       expect(getByText(/Lista vazia/i)).toBeInTheDocument();
+    }
+  });
+
+  it('Should not remove the last product after canceling the confirm dialog', () => {
+    const { getByTestId, getByText } = render(<Sut />);
+    expect(getByText(/Lista vazia/i)).toBeInTheDocument();
+    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'mocked_product_name');
+    userEvent.click(screen.getByText('Add'));
+    expect(screen.getAllByText(/mocked_product_name/i).length).toBe(1);
+    const removeProductBtn = getByTestId('btnRemoveProduct');
+    expect(removeProductBtn).toBeTruthy();
+    if (removeProductBtn) {
+      userEvent.click(removeProductBtn);
+      expect(getByTestId('removalConfirm')).toBeInTheDocument();
+      expect(getByTestId('cancelDialogBtn')).toBeInTheDocument();
+      userEvent.click(getByTestId('cancelDialogBtn'));
+      expect(screen.getAllByText(/mocked_product_name/i).length).toBe(1);
     }
   });
 
@@ -128,6 +175,48 @@ describe('Dashboard page testes', () => {
       const productLbl = getByTestId('productLabel');
       expect(productLbl).toBeTruthy();
       if (productLbl) expect(productLbl.innerHTML.indexOf('<s>')).toBeGreaterThanOrEqual(0);
+    }
+  });
+
+  it('Should open price prompt after checking a product', () => {
+    const { getByTestId, getByText } = render(<Sut />);
+    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
+    userEvent.click(screen.getByText('Add'));
+    const productCheckbox = getByTestId('productCheckbox').querySelector('input[type="checkbox"]') as HTMLInputElement;
+    if (productCheckbox) {
+      userEvent.click(productCheckbox);
+      expect(getByTestId('pricePrompt')).toBeTruthy();
+      expect(getByText('Adicionar preço ao produto')).toBeTruthy();
+    }
+  });
+
+  it('Should keep same price after cancelling price prompt', () => {
+    const { getByTestId, getByText } = render(<Sut />);
+    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
+    userEvent.click(screen.getByText('Add'));
+    const productCheckbox = getByTestId('productCheckbox').querySelector('input[type="checkbox"]') as HTMLInputElement;
+    if (productCheckbox) {
+      userEvent.click(productCheckbox);
+      expect(getByTestId('priceInput')).toBeTruthy();
+      expect(getByTestId('cancelDialogBtn')).toBeTruthy();
+      userEvent.type(getByTestId('priceInput'), '2');
+      userEvent.click(getByTestId('cancelDialogBtn'));
+      expect(getByText('R$ 0,00')).toBeTruthy();
+    }
+  });
+
+  it('Should update price after confirming price prompt', () => {
+    const { getByTestId, getByText } = render(<Sut />);
+    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
+    userEvent.click(screen.getByText('Add'));
+    const productCheckbox = getByTestId('productCheckbox').querySelector('input[type="checkbox"]') as HTMLInputElement;
+    if (productCheckbox) {
+      userEvent.click(productCheckbox);
+      const priceInput = getByTestId('priceInput').querySelector('input') as HTMLInputElement;
+      userEvent.type(priceInput, '2');
+      expect(getByTestId('confirmNewPriceButton')).toBeTruthy();
+      userEvent.click(getByTestId('confirmNewPriceButton'));
+      expect(getByText('R$ 2,00')).toBeTruthy();
     }
   });
 });

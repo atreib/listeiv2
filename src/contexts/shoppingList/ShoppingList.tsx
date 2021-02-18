@@ -8,6 +8,7 @@ interface ComponentProps {
 
 type ProviderType = {
   products: ProductModel[];
+  changeProductPrice: (price: number, productId: string) => void;
   increaseProductQuantity: (productId: string) => void;
   decreaseProductQuantity: (productId: string) => void;
   removeProduct: (productId: string) => void;
@@ -17,6 +18,7 @@ type ProviderType = {
 
 const initialProviderValues: ProviderType = {
   products: [],
+  changeProductPrice: () => null,
   increaseProductQuantity: () => null,
   decreaseProductQuantity: () => null,
   removeProduct: () => null,
@@ -61,7 +63,10 @@ const ShoppingListProvider = ({ children }: ComponentProps) => {
   const increaseProductQuantity = (id: string) => {
     setProducts(
       products.map((x) => {
-        if (x.id === id) return { ...x, quantity: x.quantity + 1 };
+        if (x.id === id) {
+          const newQuantity = x.quantity + 1;
+          return { ...x, quantity: newQuantity, totalPrice: x.unityPrice * newQuantity };
+        }
         return x;
       }),
     );
@@ -74,7 +79,10 @@ const ShoppingListProvider = ({ children }: ComponentProps) => {
   const decreaseProductQuantity = (id: string) => {
     setProducts(
       products.map((x) => {
-        if (x.id === id) return { ...x, quantity: x.quantity === 1 ? 1 : x.quantity - 1 };
+        if (x.id === id) {
+          const newQuantity = x.quantity === 1 ? 1 : x.quantity - 1;
+          return { ...x, quantity: newQuantity, totalPrice: x.unityPrice * newQuantity };
+        }
         return x;
       }),
     );
@@ -91,11 +99,26 @@ const ShoppingListProvider = ({ children }: ComponentProps) => {
     if (localStorageHistory && localStorageHistory !== '') history = JSON.parse(localStorageHistory);
     history.push({
       id: generate(),
+      date: new Date(),
       products: products,
     });
     localStorage.setItem('shoppingListHistory', JSON.stringify(history));
     setProducts([]);
     localStorage.setItem('openedShoppingList', '');
+  };
+
+  /**
+   * Change product price
+   * @param price: (number) new product price
+   * @param id: (string) id of the product being modified
+   */
+  const changeProductPrice = (price: number, id: string) => {
+    setProducts(
+      products.map((x) => {
+        if (x.id === id) return { ...x, unityPrice: price, totalPrice: price * x.quantity };
+        return x;
+      }),
+    );
   };
 
   useEffect(() => {
@@ -112,7 +135,15 @@ const ShoppingListProvider = ({ children }: ComponentProps) => {
 
   return (
     <ShoppingListContext.Provider
-      value={{ products, increaseProductQuantity, decreaseProductQuantity, removeProduct, addProduct, startNewList }}
+      value={{
+        products,
+        changeProductPrice,
+        increaseProductQuantity,
+        decreaseProductQuantity,
+        removeProduct,
+        addProduct,
+        startNewList,
+      }}
     >
       {children}
     </ShoppingListContext.Provider>
