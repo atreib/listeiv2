@@ -80,6 +80,8 @@ export const DashboardPage = () => {
     if (products && products.length > 0) {
       const totalPriceObject = products.reduce((x, y) => ({ ...x, totalPrice: x.totalPrice + y.totalPrice }));
       if (totalPriceObject) setTotalPrice(totalPriceObject.totalPrice);
+    } else {
+      setTotalPrice(0);
     }
   }, [products]);
 
