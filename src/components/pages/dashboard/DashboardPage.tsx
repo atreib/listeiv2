@@ -133,7 +133,9 @@ export const DashboardPage = () => {
           )}
           {(!products || products.length === 0) && 'Lista vazia'}
         </ListWrapper>
-        <TotalPriceLabel>Total: R$ {totalPrice.toFixed(2).replace('.', ',')}</TotalPriceLabel>
+        <TotalPriceLabel data-testid="totalPriceLbl">
+          Total: R$ {totalPrice.toFixed(2).replace('.', ',')}
+        </TotalPriceLabel>
         <NewProduct>
           <AppInput
             data-testid="inputProduct"

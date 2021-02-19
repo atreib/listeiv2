@@ -20,6 +20,7 @@ interface ComponentProps {
   marginLeft?: string;
   fontSize?: string;
   onListItemClick?: () => void;
+  testId?: string;
 }
 
 interface StyledProps {
@@ -63,6 +64,7 @@ const StyledListItem = styled(ListItem)<StyledProps>`
  * @param marginLeft? (string) List item margin-left (use "px")
  * @param fontSize? (string) List item font-size (use "rem")
  * @param onListItemClick? (() => void) On list item click handler
+ * @param testId? (string) optional id for testing purpose
  */
 export const AppListItem = ({
   children,
@@ -78,9 +80,11 @@ export const AppListItem = ({
   marginRight = '0px',
   marginBottom = '0px',
   marginLeft = '0px',
+  testId,
 }: ComponentProps) => {
   return (
     <StyledListItem
+      data-testid={testId}
       paddingtop={paddingTop}
       paddingright={paddingRight}
       paddingbottom={paddingBottom}
