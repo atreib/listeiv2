@@ -46,7 +46,7 @@ export const Product = ({ product, onRemoveProduct, changeProductQuantity, chang
 
   const checkbox = (
     <AppCheckbox
-      testId="productCheckbox"
+      testId={'productCheckbox_' + product.label}
       clickHandler={onCheckboxClick}
       edge="end"
       setChecked={setChecked}
