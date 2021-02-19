@@ -80,6 +80,8 @@ export const DashboardPage = () => {
     if (products && products.length > 0) {
       const totalPriceObject = products.reduce((x, y) => ({ ...x, totalPrice: x.totalPrice + y.totalPrice }));
       if (totalPriceObject) setTotalPrice(totalPriceObject.totalPrice);
+    } else {
+      setTotalPrice(0);
     }
   }, [products]);
 
@@ -131,7 +133,9 @@ export const DashboardPage = () => {
           )}
           {(!products || products.length === 0) && 'Lista vazia'}
         </ListWrapper>
-        <TotalPriceLabel>Total: R$ {totalPrice.toFixed(2).replace('.', ',')}</TotalPriceLabel>
+        <TotalPriceLabel data-testid="totalPriceLbl">
+          Total: R$ {totalPrice.toFixed(2).replace('.', ',')}
+        </TotalPriceLabel>
         <NewProduct>
           <AppInput
             data-testid="inputProduct"
