@@ -1,6 +1,5 @@
 import React, { ReactChild, ReactChildren } from 'react';
 import styled from 'styled-components';
-import { StylesProvider } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 
 interface ComponentProps {
@@ -14,7 +13,7 @@ const StyledList = styled(List)`
 
 /**
  * Our default List component
- * @param children: (ReactChild[] | ReactChildren[]) list of list's children
+ * @param children?: (ReactChild | ReactChildren | ReactChild[] | ReactChildren[]) list of list's children
  */
 export const AppList = ({ children }: ComponentProps) => {
   return <StyledList dense>{children}</StyledList>;

@@ -16,6 +16,14 @@ import { colors } from './../../../helpers/theme';
 import { ShoppingListContext } from './../../../contexts';
 import { AppConfirmDialog } from '../../utils';
 
+/**
+ * Our dashboard page
+ * * Show shopping list with its products
+ * * * Enable product quantity selector
+ * * * Enable product price input
+ * * Show button for starting a new shopping list
+ * * Show total price
+ */
 export const DashboardPage = () => {
   const [isStartNewListConfirmDialogOpened, setIsStartNewListConfirmDialogOpened] = useState(false);
   const [totalPrice, setTotalPrice] = useState<number>(0);
@@ -76,6 +84,9 @@ export const DashboardPage = () => {
     setIsStartNewListConfirmDialogOpened(false);
   };
 
+  /**
+   * Update total shopping list price whenever our products list changes
+   */
   useEffect(() => {
     if (products && products.length > 0) {
       const totalPriceObject = products.reduce((x, y) => ({ ...x, totalPrice: x.totalPrice + y.totalPrice }));

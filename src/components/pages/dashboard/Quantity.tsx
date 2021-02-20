@@ -15,6 +15,13 @@ interface ComponentProps {
   changeProductQuantity: (increase: boolean, id: string) => void;
 }
 
+/**
+ * A product quantity label with selector (increase/decrease)
+ * @param product: (ProductModel) product object
+ * @param changeProductQuantity: ((increase: boolean, id: string) => void) change product quantity callback function
+ * * increase: (boolean) if should increase (true) or decrease (false) by one
+ * * id: (string) product id
+ */
 export const Quantity = ({ product, changeProductQuantity }: ComponentProps) => {
   const increaseQuantity = () => {
     changeProductQuantity(true, product.id);

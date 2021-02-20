@@ -14,6 +14,18 @@ interface ComponentProps {
   changeProductPrice: (price: number, id: string) => void;
 }
 
+/**
+ * A list item with product data, checkbox and quantity selector
+ * @param product: (ProductModel) the product object
+ * @param onRemoveProduct: ((id: string) => void) remove product callback
+ * * id: (string) product id
+ * @param changeProductQuantity: ((increase: boolean, id: string) => void) change product quantity callback
+ * * increase: (boolean) if should increase (true) or decrease (false) by one
+ * * id: (string) product id
+ * @param changeProductPrice: ((price: number, id: string) => void) change product price callback
+ * * price: (number) new product price
+ * * id: (string) product id
+ */
 export const Product = ({ product, onRemoveProduct, changeProductQuantity, changeProductPrice }: ComponentProps) => {
   const [checked, setChecked] = useState(false);
   const [isPromptPriceOpened, setIsPromptPriceOpened] = useState(false);
