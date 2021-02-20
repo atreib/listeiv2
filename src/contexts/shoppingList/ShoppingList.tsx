@@ -1,5 +1,5 @@
 import React, { useState, createContext, ReactChild, ReactChildren, useEffect } from 'react';
-import { generate } from '../../helpers/uuid';
+import { generateUuid } from '../../helpers/uuid';
 import { ProductModel, ShoppingListModel } from '../../models';
 
 interface ComponentProps {
@@ -49,7 +49,7 @@ const ShoppingListProvider = ({ children }: ComponentProps) => {
    */
   const addProduct = (productName: string) => {
     const newitem = {
-      id: generate(),
+      id: generateUuid(),
       label: productName,
       quantity: 1,
       unityPrice: 0.0,
@@ -110,7 +110,7 @@ const ShoppingListProvider = ({ children }: ComponentProps) => {
     const localStorageHistory = localStorage.getItem('shoppingListHistory');
     if (localStorageHistory && localStorageHistory !== '') history = JSON.parse(localStorageHistory);
     history.push({
-      id: generate(),
+      id: generateUuid(),
       date: new Date(),
       products: products,
     });
