@@ -24,9 +24,9 @@ describe('Dashboard page testes', () => {
 
   it('Should start a empty shopping list after confirming to start new list', () => {
     const { getByPlaceholderText, getByText, getByTestId } = render(<Sut />);
-    userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock product name');
+    userEvent.type(getByPlaceholderText('Digite um produto'), mockProductName);
     userEvent.click(getByText('Add'));
-    expect(getByText(/Mock product name/i)).toBeInTheDocument();
+    expect(getByText(mockProductName)).toBeInTheDocument();
     const startNewListBtn = getByTestId('startNewListBtn');
     expect(startNewListBtn).toBeTruthy();
     if (startNewListBtn) {
@@ -42,9 +42,9 @@ describe('Dashboard page testes', () => {
 
   it('Should not start a empty shopping list after cancelling the start new list', () => {
     const { getByPlaceholderText, getByText, getByTestId } = render(<Sut />);
-    userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock product name');
+    userEvent.type(getByPlaceholderText('Digite um produto'), mockProductName);
     userEvent.click(getByText('Add'));
-    expect(getByText(/Mock product name/i)).toBeInTheDocument();
+    expect(getByText(mockProductName)).toBeInTheDocument();
     const startNewListBtn = getByTestId('startNewListBtn');
     expect(startNewListBtn).toBeTruthy();
     if (startNewListBtn) {
@@ -58,9 +58,9 @@ describe('Dashboard page testes', () => {
 
   it('Should add typed product on list after clicking on add', () => {
     const { getByPlaceholderText, getByText } = render(<Sut />);
-    userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock product name');
+    userEvent.type(getByPlaceholderText('Digite um produto'), mockProductName);
     userEvent.click(getByText('Add'));
-    expect(getByText(/Mock product name/i)).toBeInTheDocument();
+    expect(getByText(mockProductName)).toBeInTheDocument();
   });
 
   it('Should show product name and product price with current info after adding a product', () => {
@@ -180,9 +180,9 @@ describe('Dashboard page testes', () => {
 
   it('Should open price prompt after checking a product', () => {
     const { getByTestId, getByText, getByPlaceholderText } = render(<Sut />);
-    userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock_product_name');
+    userEvent.type(getByPlaceholderText('Digite um produto'), mockProductName);
     userEvent.click(getByText('Add'));
-    const productCheckbox = getByTestId('productCheckbox_Mock_product_name').querySelector(
+    const productCheckbox = getByTestId(`productCheckbox_${mockProductName}`).querySelector(
       'input[type="checkbox"]',
     ) as HTMLInputElement;
     if (productCheckbox) {
