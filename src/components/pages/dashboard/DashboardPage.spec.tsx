@@ -52,7 +52,7 @@ describe('Dashboard page testes', () => {
       expect(getByTestId('newListConfirm')).toBeInTheDocument();
       expect(getByTestId('cancelDialogBtn')).toBeInTheDocument();
       userEvent.click(getByTestId('cancelDialogBtn'));
-      expect(getByText(/Mock product name/i)).toBeInTheDocument();
+      expect(getByText(mockProductName)).toBeInTheDocument();
     }
   });
 

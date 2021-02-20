@@ -4,10 +4,11 @@ import {
   QuantityLabel,
   IncreaseQuantityButton,
   DecreaseQuantityButton,
+  PlusIcon,
+  MinusIcon,
+  AppIconButton,
 } from './DashboardPage.styles';
 import { ProductModel } from '../../../models';
-import { AppIconButton } from './../../utils/buttons';
-import { PlusIcon, MinusIcon } from './../../utils/icons';
 import { colors } from '../../../helpers/theme';
 
 interface ComponentProps {

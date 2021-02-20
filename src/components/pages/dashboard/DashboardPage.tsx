@@ -11,10 +11,10 @@ import {
   AppList,
   NewListIcon,
   TotalPriceLabel,
+  AppConfirmDialog,
 } from './DashboardPage.styles';
 import { colors } from './../../../helpers/theme';
 import { ShoppingListContext } from './../../../contexts';
-import { AppConfirmDialog } from '../../utils';
 
 /**
  * Our dashboard page

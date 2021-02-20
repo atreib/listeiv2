@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-import { ProductLabelWrapper, ProductNameLabel, ProductPriceLabel } from './DashboardPage.styles';
-import { Quantity } from './Quantity';
+import {
+  ProductLabelWrapper,
+  ProductNameLabel,
+  ProductPriceLabel,
+  AppPromptDialog,
+  AppListItem,
+  AppIconButton,
+  AppCheckbox,
+  Quantity,
+  DeleteIcon,
+  AppConfirmDialog,
+} from './DashboardPage.styles';
 import { ProductModel } from '../../../models';
-import { AppListItem, AppIconButton, AppCheckbox, AppConfirmDialog } from './../../utils';
-import { DeleteIcon } from './../../utils/icons';
 import { colors } from '../../../helpers/theme';
-import { AppPromptDialog } from '../../utils/dialogs/PromptDialog';
 
 interface ComponentProps {
   product: ProductModel;

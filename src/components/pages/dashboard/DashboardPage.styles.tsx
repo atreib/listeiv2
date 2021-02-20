@@ -2,9 +2,19 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import styled from 'styled-components';
 import { colors } from '../../../helpers/theme';
 
-export { AppInput, AppButton, AppList } from './../../utils';
-export { NewListIcon } from './../../utils/icons';
+export {
+  AppInput,
+  AppButton,
+  AppList,
+  AppConfirmDialog,
+  AppPromptDialog,
+  AppListItem,
+  AppIconButton,
+  AppCheckbox,
+} from './../../utils';
+export { NewListIcon, DeleteIcon, PlusIcon, MinusIcon } from './../../utils/icons';
 export { Product } from './Product';
+export { Quantity } from './Quantity';
 
 export const ShoppingList = styled.div`
   margin: 0;
