@@ -57,3 +57,24 @@ export const NewProduct = styled.div`
     flex: 1 1;
   }
 `;
+
+export const ProductLabelWrapper = styled.div`
+  flex: 1;
+  max-width: 75%;
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+`;
+
+export const ProductNameLabel = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-right: 0px;
+`;
+
+export const ProductPriceLabel = styled.div`
+  font-size: 0.8rem;
+  color: ${colors.contrastBackgroundLighter};
+`;

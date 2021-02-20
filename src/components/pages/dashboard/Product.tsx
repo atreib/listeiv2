@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import { ProductLabelWrapper, ProductNameLabel, ProductPriceLabel } from './DashboardPage.styles';
 import { Quantity } from './Quantity';
 import { ProductModel } from '../../../models';
 import { AppListItem, AppIconButton, AppCheckbox, AppConfirmDialog } from './../../utils';
@@ -13,27 +13,6 @@ interface ComponentProps {
   changeProductQuantity: (increase: boolean, id: string) => void;
   changeProductPrice: (price: number, id: string) => void;
 }
-
-const ProductLabelWrapper = styled.div`
-  flex: 1;
-  max-width: 75%;
-  display: flex;
-  align-items: center;
-  font-size: 1.2rem;
-`;
-
-const ProductLabel = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  padding-right: 0px;
-`;
-
-const PriceLabel = styled.div`
-  font-size: 0.8rem;
-  color: ${colors.contrastBackgroundLighter};
-`;
 
 export const Product = ({ product, onRemoveProduct, changeProductQuantity, changeProductPrice }: ComponentProps) => {
   const [checked, setChecked] = useState(false);
@@ -119,12 +98,12 @@ export const Product = ({ product, onRemoveProduct, changeProductQuantity, chang
           <div>
             <Quantity product={product} changeProductQuantity={changeProductQuantity} />
           </div>
-          <ProductLabel>
+          <ProductNameLabel>
             <div data-testid="productLabel">{checked ? <s>{product.label}</s> : `${product.label} `}</div>
-            <PriceLabel data-testid="productPriceLabel">
+            <ProductPriceLabel data-testid="productPriceLabel">
               R$ {product.unityPrice.toFixed(2).replace('.', ',')}
-            </PriceLabel>
-          </ProductLabel>
+            </ProductPriceLabel>
+          </ProductNameLabel>
         </ProductLabelWrapper>
       </AppListItem>
     </>
