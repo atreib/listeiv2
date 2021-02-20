@@ -37,7 +37,7 @@ export const Product = ({ product, onRemoveProduct, changeProductQuantity, chang
 
   const checkbox = (
     <AppCheckbox
-      testId={'productCheckbox_' + product.label}
+      testId={`productCheckbox_${product.label}`}
       clickHandler={onCheckboxClick}
       edge="end"
       setChecked={setChecked}
@@ -50,7 +50,7 @@ export const Product = ({ product, onRemoveProduct, changeProductQuantity, chang
       size="small"
       bgColor={colors.background}
       fontColor={colors.danger}
-      testId="btnRemoveProduct"
+      testId={`removeProductBtn_${product.label}`}
       onClick={() => setIsRemovalConfirmDialogOpened(true)}
     >
       <DeleteIcon />
@@ -117,8 +117,10 @@ export const Product = ({ product, onRemoveProduct, changeProductQuantity, chang
             />
           </div>
           <ProductNameLabel>
-            <div data-testid="productLabel">{checked ? <s>{product.label}</s> : `${product.label} `}</div>
-            <ProductPriceLabel data-testid="productPriceLabel">
+            <div data-testid={`productLbl_${product.label}`}>
+              {checked ? <s>{product.label}</s> : `${product.label} `}
+            </div>
+            <ProductPriceLabel data-testid={`priceLbl_${product.label}`}>
               R$ {product.unityPrice.toFixed(2).replace('.', ',')}
             </ProductPriceLabel>
           </ProductNameLabel>
