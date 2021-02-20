@@ -78,3 +78,25 @@ export const ProductPriceLabel = styled.div`
   font-size: 0.8rem;
   color: ${colors.contrastBackgroundLighter};
 `;
+
+export const QuantitySelector = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 8px 0px 4px;
+`;
+
+export const QuantityLabel = styled.div`
+  display: flex;
+  font-size: 1.2rem;
+`;
+
+export const IncreaseQuantityButton = styled.div`
+  display: flex;
+  margin: 0px 8px;
+`;
+
+export const DecreaseQuantityButton = styled.div`
+  display: flex;
+  margin: 0px 8px;
+`;

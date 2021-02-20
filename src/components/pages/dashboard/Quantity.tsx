@@ -1,6 +1,11 @@
 import React from 'react';
+import {
+  QuantitySelector,
+  QuantityLabel,
+  IncreaseQuantityButton,
+  DecreaseQuantityButton,
+} from './DashboardPage.styles';
 import { ProductModel } from '../../../models';
-import styled from 'styled-components';
 import { AppIconButton } from './../../utils/buttons';
 import { PlusIcon, MinusIcon } from './../../utils/icons';
 import { colors } from '../../../helpers/theme';
@@ -9,28 +14,6 @@ interface ComponentProps {
   product: ProductModel;
   changeProductQuantity: (increase: boolean, id: string) => void;
 }
-
-const QuantitySelector = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0px 8px 0px 4px;
-`;
-
-const QuantityLabel = styled.div`
-  display: flex;
-  font-size: 1.2rem;
-`;
-
-const IncreaseButton = styled.div`
-  display: flex;
-  margin: 0px 8px;
-`;
-
-const DecreaseButton = styled.div`
-  display: flex;
-  margin: 0px 8px;
-`;
 
 export const Quantity = ({ product, changeProductQuantity }: ComponentProps) => {
   const increaseQuantity = () => {
@@ -43,7 +26,7 @@ export const Quantity = ({ product, changeProductQuantity }: ComponentProps) => 
 
   return (
     <QuantitySelector>
-      <DecreaseButton>
+      <DecreaseQuantityButton>
         <AppIconButton
           size="small"
           bgColor={colors.primary}
@@ -53,9 +36,9 @@ export const Quantity = ({ product, changeProductQuantity }: ComponentProps) => 
         >
           <MinusIcon />
         </AppIconButton>
-      </DecreaseButton>
+      </DecreaseQuantityButton>
       <QuantityLabel data-testid="quantity">{product.quantity}</QuantityLabel>
-      <IncreaseButton>
+      <IncreaseQuantityButton>
         <AppIconButton
           size="small"
           bgColor={colors.primary}
@@ -65,7 +48,7 @@ export const Quantity = ({ product, changeProductQuantity }: ComponentProps) => 
         >
           <PlusIcon />
         </AppIconButton>
-      </IncreaseButton>
+      </IncreaseQuantityButton>
     </QuantitySelector>
   );
 };
