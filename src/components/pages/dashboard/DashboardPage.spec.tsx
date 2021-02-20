@@ -1,8 +1,10 @@
 import React from 'react';
-import { render, screen, within } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DashboardPage } from './DashboardPage';
 import { ShoppingListProvider } from './../../../contexts';
+
+const mockProductName = 'Mock_product_name';
 
 const Sut = () => (
   <ShoppingListProvider>
@@ -24,7 +26,7 @@ describe('Dashboard page testes', () => {
     const { getByPlaceholderText, getByText, getByTestId } = render(<Sut />);
     userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock product name');
     userEvent.click(getByText('Add'));
-    expect(screen.getByText(/Mock product name/i)).toBeInTheDocument();
+    expect(getByText(/Mock product name/i)).toBeInTheDocument();
     const startNewListBtn = getByTestId('startNewListBtn');
     expect(startNewListBtn).toBeTruthy();
     if (startNewListBtn) {
@@ -42,7 +44,7 @@ describe('Dashboard page testes', () => {
     const { getByPlaceholderText, getByText, getByTestId } = render(<Sut />);
     userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock product name');
     userEvent.click(getByText('Add'));
-    expect(screen.getByText(/Mock product name/i)).toBeInTheDocument();
+    expect(getByText(/Mock product name/i)).toBeInTheDocument();
     const startNewListBtn = getByTestId('startNewListBtn');
     expect(startNewListBtn).toBeTruthy();
     if (startNewListBtn) {
@@ -55,89 +57,82 @@ describe('Dashboard page testes', () => {
   });
 
   it('Should add typed product on list after clicking on add', () => {
-    render(<Sut />);
-    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
-    userEvent.click(screen.getByText('Add'));
-    expect(screen.getByText(/Mock product name/i)).toBeInTheDocument();
+    const { getByPlaceholderText, getByText } = render(<Sut />);
+    userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock product name');
+    userEvent.click(getByText('Add'));
+    expect(getByText(/Mock product name/i)).toBeInTheDocument();
   });
 
   it('Should show product name and product price with current info after adding a product', () => {
-    render(<Sut />);
-    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
-    userEvent.click(screen.getByText('Add'));
-    expect(screen.getByText(/Mock product name/i)).toBeInTheDocument();
-    expect(screen.getByTestId('productPriceLabel')).toBeTruthy();
-    expect(screen.getByTestId('productPriceLabel').innerHTML).toContain('R$ 0,00');
+    const { getByPlaceholderText, getByText, getByTestId } = render(<Sut />);
+    userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock product name');
+    userEvent.click(getByText('Add'));
+    expect(getByText(/Mock product name/i)).toBeInTheDocument();
+    expect(getByTestId('productPriceLabel')).toBeTruthy();
+    expect(getByTestId('productPriceLabel').innerHTML).toContain('R$ 0,00');
   });
 
   it('Should list all products added to shopping list', () => {
-    render(<Sut />);
-    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
-    userEvent.click(screen.getByText('Add'));
-    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name 2');
-    userEvent.click(screen.getByText('Add'));
-    expect(screen.getAllByText(/product/i).length).toBe(2);
+    const { getAllByText, getByPlaceholderText, getByText } = render(<Sut />);
+    userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock product name');
+    userEvent.click(getByText('Add'));
+    userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock product name 2');
+    userEvent.click(getByText('Add'));
+    expect(getAllByText(/product/i).length).toBe(2);
   });
 
   it('Should increase by 1 the quantity of a product after clicking on plus', () => {
-    const { getAllByTestId } = render(<Sut />);
-    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
-    userEvent.click(screen.getByText('Add'));
-    const increaseBtn = getAllByTestId('increaseButton');
+    const { getByTestId, getByPlaceholderText, getByText } = render(<Sut />);
+    userEvent.type(getByPlaceholderText('Digite um produto'), mockProductName);
+    userEvent.click(getByText('Add'));
+    const increaseBtn = getByTestId(`increaseBtn_${mockProductName}`);
     expect(increaseBtn).toBeTruthy();
-    expect(increaseBtn.length).toBeGreaterThanOrEqual(1);
     if (increaseBtn) {
-      userEvent.click(increaseBtn[0]);
-      const quantityLbl = getAllByTestId('quantity');
+      userEvent.click(increaseBtn);
+      const quantityLbl = getByTestId(`quantityLbl_${mockProductName}`);
       expect(quantityLbl).toBeTruthy();
-      expect(quantityLbl.length).toBeGreaterThanOrEqual(1);
-      expect(quantityLbl[0].innerHTML).toEqual('2');
+      expect(quantityLbl.innerHTML).toEqual('2');
     }
   });
 
   it('Should decrease by 1 the quantity of a product after clicking on minus', () => {
-    const { getAllByTestId } = render(<Sut />);
-    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
-    userEvent.click(screen.getByText('Add'));
-    const increaseBtn = getAllByTestId('increaseButton');
-    const decreaseBtn = getAllByTestId('decreaseButton');
+    const { getByTestId, getByPlaceholderText, getByText } = render(<Sut />);
+    userEvent.type(getByPlaceholderText('Digite um produto'), mockProductName);
+    userEvent.click(getByText('Add'));
+    const increaseBtn = getByTestId(`increaseBtn_${mockProductName}`);
+    const decreaseBtn = getByTestId(`decreaseBtn_${mockProductName}`);
     expect(increaseBtn).toBeTruthy();
-    expect(increaseBtn.length).toBeGreaterThanOrEqual(1);
     expect(decreaseBtn).toBeTruthy();
-    expect(increaseBtn.length).toBeGreaterThanOrEqual(1);
     if (increaseBtn && decreaseBtn) {
-      userEvent.click(increaseBtn[0]);
-      const quantityLbl = getAllByTestId('quantity');
+      userEvent.click(increaseBtn);
+      const quantityLbl = getByTestId(`quantityLbl_${mockProductName}`);
       expect(quantityLbl).toBeTruthy();
-      expect(quantityLbl.length).toBeGreaterThanOrEqual(1);
-      expect(quantityLbl[0].innerHTML).toEqual('2');
-      userEvent.click(decreaseBtn[0]);
-      expect(quantityLbl[0].innerHTML).toEqual('1');
+      expect(quantityLbl.innerHTML).toEqual('2');
+      userEvent.click(decreaseBtn);
+      expect(quantityLbl.innerHTML).toEqual('1');
     }
   });
 
   it('Should keep the quantity equals 1 after clicking on minus if its already 1', () => {
-    const { getAllByTestId } = render(<Sut />);
-    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock product name');
-    userEvent.click(screen.getByText('Add'));
-    const decreaseBtn = getAllByTestId('decreaseButton');
+    const { getByTestId, getByPlaceholderText, getByText } = render(<Sut />);
+    userEvent.type(getByPlaceholderText('Digite um produto'), mockProductName);
+    userEvent.click(getByText('Add'));
+    const decreaseBtn = getByTestId(`decreaseBtn_${mockProductName}`);
     expect(decreaseBtn).toBeTruthy();
-    expect(decreaseBtn.length).toBeGreaterThanOrEqual(1);
     if (decreaseBtn) {
-      userEvent.click(decreaseBtn[0]);
-      const quantityLbl = getAllByTestId('quantity');
+      userEvent.click(decreaseBtn);
+      const quantityLbl = getByTestId(`quantityLbl_${mockProductName}`);
       expect(quantityLbl).toBeTruthy();
-      expect(quantityLbl.length).toBeGreaterThanOrEqual(1);
-      expect(quantityLbl[0].innerHTML).toEqual('1');
+      expect(quantityLbl.innerHTML).toEqual('1');
     }
   });
 
   it('Should remove the last product after removing and confirming then show empty list', () => {
-    const { getByTestId, getByText } = render(<Sut />);
+    const { getByTestId, getByText, getByPlaceholderText, getAllByText } = render(<Sut />);
     expect(getByText(/Lista vazia/i)).toBeInTheDocument();
-    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'mocked_product_name');
-    userEvent.click(screen.getByText('Add'));
-    expect(screen.getAllByText(/mocked_product_name/i).length).toBe(1);
+    userEvent.type(getByPlaceholderText('Digite um produto'), 'mocked_product_name');
+    userEvent.click(getByText('Add'));
+    expect(getAllByText(/mocked_product_name/i).length).toBe(1);
     const removeProductBtn = getByTestId('btnRemoveProduct');
     expect(removeProductBtn).toBeTruthy();
     if (removeProductBtn) {
@@ -150,11 +145,11 @@ describe('Dashboard page testes', () => {
   });
 
   it('Should not remove the last product after canceling the confirm dialog', () => {
-    const { getByTestId, getByText } = render(<Sut />);
+    const { getByTestId, getByText, getAllByText, getByPlaceholderText } = render(<Sut />);
     expect(getByText(/Lista vazia/i)).toBeInTheDocument();
-    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'mocked_product_name');
-    userEvent.click(screen.getByText('Add'));
-    expect(screen.getAllByText(/mocked_product_name/i).length).toBe(1);
+    userEvent.type(getByPlaceholderText('Digite um produto'), 'mocked_product_name');
+    userEvent.click(getByText('Add'));
+    expect(getAllByText(/mocked_product_name/i).length).toBe(1);
     const removeProductBtn = getByTestId('btnRemoveProduct');
     expect(removeProductBtn).toBeTruthy();
     if (removeProductBtn) {
@@ -162,14 +157,14 @@ describe('Dashboard page testes', () => {
       expect(getByTestId('removalConfirm')).toBeInTheDocument();
       expect(getByTestId('cancelDialogBtn')).toBeInTheDocument();
       userEvent.click(getByTestId('cancelDialogBtn'));
-      expect(screen.getAllByText(/mocked_product_name/i).length).toBe(1);
+      expect(getAllByText(/mocked_product_name/i).length).toBe(1);
     }
   });
 
   it('Should strike through after checking a product', () => {
-    const { getByTestId } = render(<Sut />);
-    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock_product_name');
-    userEvent.click(screen.getByText('Add'));
+    const { getByTestId, getByPlaceholderText, getByText } = render(<Sut />);
+    userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock_product_name');
+    userEvent.click(getByText('Add'));
     const productCheckbox = getByTestId('productCheckbox_Mock_product_name').querySelector(
       'input[type="checkbox"]',
     ) as HTMLInputElement;
@@ -184,9 +179,9 @@ describe('Dashboard page testes', () => {
   });
 
   it('Should open price prompt after checking a product', () => {
-    const { getByTestId, getByText } = render(<Sut />);
-    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock_product_name');
-    userEvent.click(screen.getByText('Add'));
+    const { getByTestId, getByText, getByPlaceholderText } = render(<Sut />);
+    userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock_product_name');
+    userEvent.click(getByText('Add'));
     const productCheckbox = getByTestId('productCheckbox_Mock_product_name').querySelector(
       'input[type="checkbox"]',
     ) as HTMLInputElement;
@@ -198,9 +193,9 @@ describe('Dashboard page testes', () => {
   });
 
   it('Should keep same price after cancelling price prompt', () => {
-    const { getByTestId } = render(<Sut />);
-    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock_product_name');
-    userEvent.click(screen.getByText('Add'));
+    const { getByTestId, getByPlaceholderText, getByText } = render(<Sut />);
+    userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock_product_name');
+    userEvent.click(getByText('Add'));
     const productCheckbox = getByTestId('productCheckbox_Mock_product_name').querySelector(
       'input[type="checkbox"]',
     ) as HTMLInputElement;
@@ -218,10 +213,10 @@ describe('Dashboard page testes', () => {
   });
 
   it('Should update price after confirming price prompt', () => {
-    const { getByTestId } = render(<Sut />);
-    userEvent.type(screen.getByPlaceholderText('Digite um produto'), 'Mock_product_name');
-    userEvent.click(screen.getByText('Add'));
-    const productCheckbox = getByTestId('productCheckbox_Mock_product_name').querySelector(
+    const { getByTestId, getByPlaceholderText, getByText } = render(<Sut />);
+    userEvent.type(getByPlaceholderText('Digite um produto'), mockProductName);
+    userEvent.click(getByText('Add'));
+    const productCheckbox = getByTestId(`productCheckbox_${mockProductName}`).querySelector(
       'input[type="checkbox"]',
     ) as HTMLInputElement;
     if (productCheckbox) {
@@ -238,10 +233,10 @@ describe('Dashboard page testes', () => {
   });
 
   it('Should add product, set price, increase by 1 the quantity and update total price', () => {
-    const { getAllByTestId, getByTestId, getByPlaceholderText, getByText } = render(<Sut />);
-    userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock_product_name');
+    const { getByTestId, getByPlaceholderText, getByText } = render(<Sut />);
+    userEvent.type(getByPlaceholderText('Digite um produto'), mockProductName);
     userEvent.click(getByText('Add'));
-    const productCheckbox = getByTestId('productCheckbox_Mock_product_name').querySelector(
+    const productCheckbox = getByTestId(`productCheckbox_${mockProductName}`).querySelector(
       'input[type="checkbox"]',
     ) as HTMLInputElement;
     if (productCheckbox) {
@@ -249,9 +244,9 @@ describe('Dashboard page testes', () => {
       const priceInput = getByTestId('priceInput').querySelector('input') as HTMLInputElement;
       userEvent.type(priceInput, '2');
       userEvent.click(getByTestId('confirmNewPriceButton'));
-      const increaseBtn = getAllByTestId('increaseButton');
+      const increaseBtn = getByTestId(`increaseBtn_${mockProductName}`);
       if (increaseBtn) {
-        userEvent.click(increaseBtn[0]);
+        userEvent.click(increaseBtn);
         expect(getByTestId('productPriceLabel')).toBeTruthy();
         expect(getByTestId('productPriceLabel').innerHTML).toContain('R$ 2,00');
         expect(getByTestId('totalPriceLbl')).toBeTruthy();

@@ -108,7 +108,13 @@ export const Product = ({ product, onRemoveProduct, changeProductQuantity, chang
       >
         <ProductLabelWrapper>
           <div>
-            <Quantity product={product} changeProductQuantity={changeProductQuantity} />
+            <Quantity
+              product={product}
+              changeProductQuantity={changeProductQuantity}
+              decreaseButtonTestId={`decreaseBtn_${product.label}`}
+              increaseButtonTestId={`increaseBtn_${product.label}`}
+              quantityLabelTestId={`quantityLbl_${product.label}`}
+            />
           </div>
           <ProductNameLabel>
             <div data-testid="productLabel">{checked ? <s>{product.label}</s> : `${product.label} `}</div>

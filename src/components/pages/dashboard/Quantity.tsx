@@ -13,6 +13,9 @@ import { colors } from '../../../helpers/theme';
 interface ComponentProps {
   product: ProductModel;
   changeProductQuantity: (increase: boolean, id: string) => void;
+  decreaseButtonTestId: string;
+  increaseButtonTestId: string;
+  quantityLabelTestId: string;
 }
 
 /**
@@ -21,8 +24,17 @@ interface ComponentProps {
  * @param changeProductQuantity: ((increase: boolean, id: string) => void) change product quantity callback function
  * * increase: (boolean) if should increase (true) or decrease (false) by one
  * * id: (string) product id
+ * @param decreaseButtonTestId: (string) decrease button test id
+ * @param increaseButtonTestId: (string) increase button test id
+ * @param quantityLabelTestId: (string) quantity label teste id
  */
-export const Quantity = ({ product, changeProductQuantity }: ComponentProps) => {
+export const Quantity = ({
+  product,
+  changeProductQuantity,
+  decreaseButtonTestId,
+  increaseButtonTestId,
+  quantityLabelTestId,
+}: ComponentProps) => {
   const increaseQuantity = () => {
     changeProductQuantity(true, product.id);
   };
@@ -38,19 +50,19 @@ export const Quantity = ({ product, changeProductQuantity }: ComponentProps) => 
           size="small"
           bgColor={colors.primary}
           fontColor={colors.contrastPrimary}
-          testId="decreaseButton"
+          testId={decreaseButtonTestId}
           onClick={() => decreaseQuantity()}
         >
           <MinusIcon />
         </AppIconButton>
       </DecreaseQuantityButton>
-      <QuantityLabel data-testid="quantity">{product.quantity}</QuantityLabel>
+      <QuantityLabel data-testid={quantityLabelTestId}>{product.quantity}</QuantityLabel>
       <IncreaseQuantityButton>
         <AppIconButton
           size="small"
           bgColor={colors.primary}
           fontColor={colors.contrastPrimary}
-          testId="increaseButton"
+          testId={increaseButtonTestId}
           onClick={() => increaseQuantity()}
         >
           <PlusIcon />
