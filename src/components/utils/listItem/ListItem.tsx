@@ -1,9 +1,9 @@
 import React, { ReactChildren, ReactChild } from 'react';
 import styled from 'styled-components';
-import { fade, StylesProvider } from '@material-ui/core/styles';
+import { fade } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import { ListItemIcon, ListItemText } from '@material-ui/core';
+import { ListItemIcon } from '@material-ui/core';
 import { colors } from './../../../helpers/theme';
 
 interface ComponentProps {

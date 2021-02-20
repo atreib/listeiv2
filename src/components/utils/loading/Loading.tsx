@@ -33,7 +33,7 @@ const LoadingWrapper = styled.div<LoadingWrapperProps>`
  */
 export const Loading = ({ children, width, height, backgroundColor }: ComponentProps) => {
   return (
-    <LoadingWrapper data-testid="loadingwrapper" width={width} height={height} backgroundColor={backgroundColor}>
+    <LoadingWrapper width={width} height={height} backgroundColor={backgroundColor}>
       {children}
     </LoadingWrapper>
   );

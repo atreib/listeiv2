@@ -1,6 +1,5 @@
 import React, { ReactChild, ReactChildren } from 'react';
 import Button from '@material-ui/core/Button';
-import { StylesProvider } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import styled from 'styled-components';
 

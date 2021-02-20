@@ -1,5 +1,5 @@
 import React, { useState, createContext, ReactChild, ReactChildren, useEffect } from 'react';
-import { generate } from '../../helpers/uuid';
+import { generateUuid } from '../../helpers/uuid';
 import { ProductModel, ShoppingListModel } from '../../models';
 
 interface ComponentProps {
@@ -28,6 +28,18 @@ const initialProviderValues: ProviderType = {
 
 const ShoppingListContext = createContext<ProviderType>(initialProviderValues);
 
+/**
+ * Shopping list context provider
+ * * Export products list
+ * * Export function for adding a product on list's end
+ * * Export function for removing a specific product by id
+ * * Export function for increasing product quantity by one through id
+ * * Export function for decreasing product quantity by one through id
+ * * Export function for starting a new shopping list
+ * * Export function for changing product price by id
+ * * Every change on shopping list is persisted
+ * @param children: (ReactChild | ReactChildren) children content
+ */
 const ShoppingListProvider = ({ children }: ComponentProps) => {
   const [products, setProducts] = useState<ProductModel[]>([]);
 
@@ -37,7 +49,7 @@ const ShoppingListProvider = ({ children }: ComponentProps) => {
    */
   const addProduct = (productName: string) => {
     const newitem = {
-      id: generate(),
+      id: generateUuid(),
       label: productName,
       quantity: 1,
       unityPrice: 0.0,
@@ -98,7 +110,7 @@ const ShoppingListProvider = ({ children }: ComponentProps) => {
     const localStorageHistory = localStorage.getItem('shoppingListHistory');
     if (localStorageHistory && localStorageHistory !== '') history = JSON.parse(localStorageHistory);
     history.push({
-      id: generate(),
+      id: generateUuid(),
       date: new Date(),
       products: products,
     });
@@ -121,10 +133,16 @@ const ShoppingListProvider = ({ children }: ComponentProps) => {
     );
   };
 
+  /**
+   * Any change on shopping list is persisted
+   */
   useEffect(() => {
     if (products && products.length > 0) localStorage.setItem('openedShoppingList', JSON.stringify(products));
   }, [products]);
 
+  /**
+   * At first load, we retrieve our last shopping list from persistence layer
+   */
   useEffect(() => {
     const localStorageShoppingList = localStorage.getItem('openedShoppingList');
     if (localStorageShoppingList && localStorageShoppingList !== '') {

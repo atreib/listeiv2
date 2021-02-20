@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Quantity } from './Quantity';
+import {
+  ProductLabelWrapper,
+  ProductNameLabel,
+  ProductPriceLabel,
+  AppPromptDialog,
+  AppListItem,
+  AppIconButton,
+  AppCheckbox,
+  Quantity,
+  DeleteIcon,
+  AppConfirmDialog,
+} from './DashboardPage.styles';
 import { ProductModel } from '../../../models';
-import { AppListItem, AppIconButton, AppCheckbox, AppConfirmDialog } from './../../utils';
-import { DeleteIcon } from './../../utils/icons';
 import { colors } from '../../../helpers/theme';
-import { AppPromptDialog } from '../../utils/dialogs/PromptDialog';
 
 interface ComponentProps {
   product: ProductModel;
@@ -14,27 +21,18 @@ interface ComponentProps {
   changeProductPrice: (price: number, id: string) => void;
 }
 
-const ProductLabelWrapper = styled.div`
-  flex: 1;
-  max-width: 75%;
-  display: flex;
-  align-items: center;
-  font-size: 1.2rem;
-`;
-
-const ProductLabel = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  padding-right: 0px;
-`;
-
-const PriceLabel = styled.div`
-  font-size: 0.8rem;
-  color: ${colors.contrastBackgroundLighter};
-`;
-
+/**
+ * A list item with product data, checkbox and quantity selector
+ * @param product: (ProductModel) the product object
+ * @param onRemoveProduct: ((id: string) => void) remove product callback
+ * * id: (string) product id
+ * @param changeProductQuantity: ((increase: boolean, id: string) => void) change product quantity callback
+ * * increase: (boolean) if should increase (true) or decrease (false) by one
+ * * id: (string) product id
+ * @param changeProductPrice: ((price: number, id: string) => void) change product price callback
+ * * price: (number) new product price
+ * * id: (string) product id
+ */
 export const Product = ({ product, onRemoveProduct, changeProductQuantity, changeProductPrice }: ComponentProps) => {
   const [checked, setChecked] = useState(false);
   const [isPromptPriceOpened, setIsPromptPriceOpened] = useState(false);
@@ -46,7 +44,7 @@ export const Product = ({ product, onRemoveProduct, changeProductQuantity, chang
 
   const checkbox = (
     <AppCheckbox
-      testId={'productCheckbox_' + product.label}
+      testId={`productCheckbox_${product.label}`}
       clickHandler={onCheckboxClick}
       edge="end"
       setChecked={setChecked}
@@ -59,7 +57,7 @@ export const Product = ({ product, onRemoveProduct, changeProductQuantity, chang
       size="small"
       bgColor={colors.background}
       fontColor={colors.danger}
-      testId="btnRemoveProduct"
+      testId={`removeProductBtn_${product.label}`}
       onClick={() => setIsRemovalConfirmDialogOpened(true)}
     >
       <DeleteIcon />
@@ -117,14 +115,22 @@ export const Product = ({ product, onRemoveProduct, changeProductQuantity, chang
       >
         <ProductLabelWrapper>
           <div>
-            <Quantity product={product} changeProductQuantity={changeProductQuantity} />
+            <Quantity
+              product={product}
+              changeProductQuantity={changeProductQuantity}
+              decreaseButtonTestId={`decreaseBtn_${product.label}`}
+              increaseButtonTestId={`increaseBtn_${product.label}`}
+              quantityLabelTestId={`quantityLbl_${product.label}`}
+            />
           </div>
-          <ProductLabel>
-            <div data-testid="productLabel">{checked ? <s>{product.label}</s> : `${product.label} `}</div>
-            <PriceLabel data-testid="productPriceLabel">
+          <ProductNameLabel>
+            <div data-testid={`productLbl_${product.label}`}>
+              {checked ? <s>{product.label}</s> : `${product.label} `}
+            </div>
+            <ProductPriceLabel data-testid={`priceLbl_${product.label}`}>
               R$ {product.unityPrice.toFixed(2).replace('.', ',')}
-            </PriceLabel>
-          </ProductLabel>
+            </ProductPriceLabel>
+          </ProductNameLabel>
         </ProductLabelWrapper>
       </AppListItem>
     </>

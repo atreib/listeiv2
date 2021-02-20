@@ -1,6 +1,6 @@
 # Persistência de dados
 
-As listas de compras são armazenadas apenas em runtime (por enquanto).
+As listas de compras são armazenadas no localStorage da aplicação.
 Para controle da lista (e pensando no crescimento da solução - inclusão de novos componentes), toda a gestão em cima da lista de compras aberta/principal é feita através de um context (Context API).
 
 # Testes automatizados

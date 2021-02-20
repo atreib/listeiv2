@@ -2,9 +2,19 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import styled from 'styled-components';
 import { colors } from '../../../helpers/theme';
 
-export { AppInput, AppButton, AppList } from './../../utils';
-export { NewListIcon } from './../../utils/icons';
+export {
+  AppInput,
+  AppButton,
+  AppList,
+  AppConfirmDialog,
+  AppPromptDialog,
+  AppListItem,
+  AppIconButton,
+  AppCheckbox,
+} from './../../utils';
+export { NewListIcon, DeleteIcon, PlusIcon, MinusIcon } from './../../utils/icons';
 export { Product } from './Product';
+export { Quantity } from './Quantity';
 
 export const ShoppingList = styled.div`
   margin: 0;
@@ -56,4 +66,47 @@ export const NewProduct = styled.div`
   & > button {
     flex: 1 1;
   }
+`;
+
+export const ProductLabelWrapper = styled.div`
+  flex: 1;
+  max-width: 75%;
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+`;
+
+export const ProductNameLabel = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-right: 0px;
+`;
+
+export const ProductPriceLabel = styled.div`
+  font-size: 0.8rem;
+  color: ${colors.contrastBackgroundLighter};
+`;
+
+export const QuantitySelector = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 8px 0px 4px;
+`;
+
+export const QuantityLabel = styled.div`
+  display: flex;
+  font-size: 1.2rem;
+`;
+
+export const IncreaseQuantityButton = styled.div`
+  display: flex;
+  margin: 0px 8px;
+`;
+
+export const DecreaseQuantityButton = styled.div`
+  display: flex;
+  margin: 0px 8px;
 `;

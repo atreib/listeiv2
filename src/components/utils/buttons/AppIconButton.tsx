@@ -18,7 +18,7 @@ interface ButtonProps {
   fontcolor?: string;
 }
 
-const StyledButton = styled(IconButton)<ButtonProps>`
+const StyledIconButton = styled(IconButton)<ButtonProps>`
   ${({ bgcolor }) =>
     bgcolor && `background-color: ${fade(bgcolor, 0.8)}; &:hover, &:focus { background-color: ${bgcolor}; } `}
   ${({ fontcolor }) => fontcolor && `color: ${fade(fontcolor, 1)};`}
@@ -48,7 +48,7 @@ export const AppIconButton = ({
   testId = '',
 }: ComponentProps) => {
   return (
-    <StyledButton
+    <StyledIconButton
       data-testid={testId}
       bgcolor={bgColor}
       fontcolor={fontColor}
@@ -57,6 +57,6 @@ export const AppIconButton = ({
       size={size}
     >
       {children}
-    </StyledButton>
+    </StyledIconButton>
   );
 };
