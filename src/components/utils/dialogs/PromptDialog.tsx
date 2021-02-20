@@ -53,7 +53,7 @@ export const AppPromptDialog = ({
   const [value, setValue] = useState<string>(defaultValue ?? '');
   const BtnConfirm = () => (
     <AppButton
-      testId="confirmNewPriceButton"
+      testId="confirmPromptButton"
       bgColor={colors.primary}
       fontColor={colors.contrastPrimary}
       onClick={() => fnSuccess(value)}

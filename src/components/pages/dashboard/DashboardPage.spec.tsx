@@ -223,8 +223,8 @@ describe('Dashboard page testes', () => {
       userEvent.click(productCheckbox);
       const priceInput = getByTestId('priceInput').querySelector('input') as HTMLInputElement;
       userEvent.type(priceInput, '2');
-      expect(getByTestId('confirmNewPriceButton')).toBeTruthy();
-      userEvent.click(getByTestId('confirmNewPriceButton'));
+      expect(getByTestId('confirmPromptButton')).toBeTruthy();
+      userEvent.click(getByTestId('confirmPromptButton'));
       expect(getByTestId(`priceLbl_${mockProductName}`)).toBeTruthy();
       expect(getByTestId(`priceLbl_${mockProductName}`).innerHTML).toContain('R$ 2,00');
       expect(getByTestId('totalPriceLbl')).toBeTruthy();
@@ -243,7 +243,7 @@ describe('Dashboard page testes', () => {
       userEvent.click(productCheckbox);
       const priceInput = getByTestId('priceInput').querySelector('input') as HTMLInputElement;
       userEvent.type(priceInput, '2');
-      userEvent.click(getByTestId('confirmNewPriceButton'));
+      userEvent.click(getByTestId('confirmPromptButton'));
       const increaseBtn = getByTestId(`increaseBtn_${mockProductName}`);
       if (increaseBtn) {
         userEvent.click(increaseBtn);
@@ -265,7 +265,7 @@ describe('Dashboard page testes', () => {
       userEvent.click(product1Checkbox);
       const priceInput = getByTestId('priceInput').querySelector('input') as HTMLInputElement;
       userEvent.type(priceInput, '2');
-      userEvent.click(getByTestId('confirmNewPriceButton'));
+      userEvent.click(getByTestId('confirmPromptButton'));
     }
 
     userEvent.type(getByPlaceholderText('Digite um produto'), 'Mock_product_2');
@@ -275,7 +275,7 @@ describe('Dashboard page testes', () => {
       userEvent.click(product2Checkbox);
       const priceInput = getByTestId('priceInput').querySelector('input') as HTMLInputElement;
       userEvent.type(priceInput, '3');
-      userEvent.click(getByTestId('confirmNewPriceButton'));
+      userEvent.click(getByTestId('confirmPromptButton'));
     }
 
     expect(getByTestId('totalPriceLbl').innerHTML).toContain('R$ 5,00');
