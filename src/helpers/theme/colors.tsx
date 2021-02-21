@@ -6,6 +6,6 @@ export const colors = {
   contrastBackgroundLighter: '#555555',
   secondary: '#3E7CB1',
   contrastSecondary: '#FFFFFF',
-  danger: '#C81D25',
+  danger: '#bb2124',
   contrastDanger: '#FFFFFF',
 };
