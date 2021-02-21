@@ -52,6 +52,16 @@ export const Product = ({ product, onRemoveProduct, changeProductQuantity, chang
     />
   );
 
+  const confirmRemoveProduct = () => {
+    onRemoveProduct(product.id);
+    setIsRemovalConfirmDialogOpened(false);
+  };
+
+  // we are creating this invisible
+  // remove button inside product itemlist
+  // so we can test what happens when we try
+  // to remove a product
+  // (because testing library hasn't a swipe simulator)
   const removeProductIconButton = (
     <AppIconButton
       size="small"
@@ -60,14 +70,9 @@ export const Product = ({ product, onRemoveProduct, changeProductQuantity, chang
       testId={`removeProductBtn_${product.label}`}
       onClick={() => setIsRemovalConfirmDialogOpened(true)}
     >
-      <DeleteIcon />
+      &nbsp;
     </AppIconButton>
   );
-
-  const confirmRemoveProduct = () => {
-    onRemoveProduct(product.id);
-    setIsRemovalConfirmDialogOpened(false);
-  };
 
   return (
     <>
@@ -111,9 +116,21 @@ export const Product = ({ product, onRemoveProduct, changeProductQuantity, chang
         paddingLeft="0px"
         fontSize="1.3rem"
         secondaryAction={checkbox}
-        icon={removeProductIconButton}
+        enableSwipeLeft={true}
+        leftActionBackgrond={colors.danger}
+        leftActionFontColor={colors.contrastDanger}
+        onSwipedLeft={() => setIsRemovalConfirmDialogOpened(true)}
       >
         <ProductLabelWrapper>
+          {removeProductIconButton}
+          <ProductNameLabel>
+            <div data-testid={`productLbl_${product.label}`}>
+              {checked ? <s>{product.label}</s> : `${product.label} `}
+            </div>
+            <ProductPriceLabel data-testid={`priceLbl_${product.label}`}>
+              R$ {product.unityPrice.toFixed(2).replace('.', ',')}
+            </ProductPriceLabel>
+          </ProductNameLabel>
           <div>
             <Quantity
               product={product}
@@ -123,14 +140,6 @@ export const Product = ({ product, onRemoveProduct, changeProductQuantity, chang
               quantityLabelTestId={`quantityLbl_${product.label}`}
             />
           </div>
-          <ProductNameLabel>
-            <div data-testid={`productLbl_${product.label}`}>
-              {checked ? <s>{product.label}</s> : `${product.label} `}
-            </div>
-            <ProductPriceLabel data-testid={`priceLbl_${product.label}`}>
-              R$ {product.unityPrice.toFixed(2).replace('.', ',')}
-            </ProductPriceLabel>
-          </ProductNameLabel>
         </ProductLabelWrapper>
       </AppListItem>
     </>
