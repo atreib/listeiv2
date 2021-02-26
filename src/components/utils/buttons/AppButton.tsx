@@ -21,8 +21,7 @@ interface ButtonProps {
 }
 
 const StyledButton = styled(Button)<ButtonProps>`
-  ${({ bgcolor }) =>
-    bgcolor && `background-color: ${fade(bgcolor, 0.8)}; &:hover, &:focus { background-color: ${bgcolor}; } `}
+  ${({ bgcolor }) => bgcolor && `background-color: ${bgcolor}; &:hover, &:focus { background-color: ${bgcolor}; } `}
   ${({ fontcolor }) => fontcolor && `color: ${fade(fontcolor, 1)};`}
 `;
 

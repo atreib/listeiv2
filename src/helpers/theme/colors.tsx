@@ -1,11 +1,11 @@
 export const colors = {
   primary: '#F17300',
-  contrastPrimary: '#FFFFFF',
-  background: '#DBE4EE',
+  contrastPrimary: '#FFF7F0',
+  background: '#DFE0DF',
   contrastBackground: '#000000',
   contrastBackgroundLighter: '#555555',
-  secondary: '#3E7CB1',
-  contrastSecondary: '#FFFFFF',
-  danger: '#bb2124',
-  contrastDanger: '#FFFFFF',
+  secondary: '#673C1F',
+  contrastSecondary: '#fff',
+  danger: '#C45258',
+  contrastDanger: '#FFF7F0',
 };
