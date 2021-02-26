@@ -12,7 +12,7 @@ export {
   AppIconButton,
   AppCheckbox,
 } from './../../utils';
-export { NewListIcon, DeleteIcon, PlusIcon, MinusIcon } from './../../utils/icons';
+export { NewListIcon, DeleteIcon, PlusIcon, MinusIcon, LogoIcon, AddProductIcon } from './../../utils/icons';
 export { Product } from './Product';
 export { Quantity } from './Quantity';
 
@@ -23,6 +23,11 @@ export const ShoppingList = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+`;
+
+export const TitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export const ListTitle = styled.div`
@@ -37,7 +42,7 @@ export const ListTitle = styled.div`
 `;
 
 export const ListWrapper = styled.div`
-  padding: 4px 0px 4px 0px;
+  padding: 0px 0px 4px 0px;
 `;
 
 export const TotalPriceLabel = styled.div`
