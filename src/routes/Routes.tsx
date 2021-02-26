@@ -1,5 +1,6 @@
 import React from 'react';
 import HomeIcon from '@material-ui/icons/Home';
+import { LogoIcon } from './../components/utils/icons';
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
 
 export interface RoutesModel {
@@ -15,5 +16,11 @@ export const AppRoutes: Array<RoutesModel> = [
     component: React.lazy(() => import('./../components/pages/dashboard/DashboardPage')),
     title: 'Início',
     icon: HomeIcon,
+  },
+  {
+    path: '/history',
+    component: React.lazy(() => import('./../components/pages/history/HistoryPage')),
+    title: 'Histórico',
+    icon: LogoIcon,
   },
 ];
