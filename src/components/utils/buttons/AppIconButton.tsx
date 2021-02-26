@@ -1,10 +1,11 @@
 import React, { ReactChild, ReactChildren } from 'react';
 import IconButton from '@material-ui/core/IconButton';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 import styled from 'styled-components';
 
 interface ComponentProps {
   children: ReactChild | ReactChildren;
-  onClick?: () => void;
+  onClick: () => void;
   testId?: string;
   bgColor?: string;
   fontColor?: string;
@@ -18,8 +19,9 @@ interface ButtonProps {
 }
 
 const StyledIconButton = styled(IconButton)<ButtonProps>`
-  ${({ bgcolor }) => bgcolor && `background-color: ${bgcolor}; &:hover, &:focus { background-color: ${bgcolor}; } `}
-  ${({ fontcolor }) => fontcolor && `color: ${fontcolor};`}
+  ${({ bgcolor }) =>
+    bgcolor && `background-color: ${fade(bgcolor, 0.8)}; &:hover, &:focus { background-color: ${bgcolor}; } `}
+  ${({ fontcolor }) => fontcolor && `color: ${fade(fontcolor, 1)};`}
 
   &.MuiIconButton-sizeSmall {
     padding: 0px;
@@ -29,7 +31,7 @@ const StyledIconButton = styled(IconButton)<ButtonProps>`
 /**
  * Default icon button of our project
  * @param children: (ReactChild | ReactChildren) Button's content
- * @param onClick?: (onClick: () => void) Function to be called on button's click
+ * @param onClick: (onClick: () => void) Function to be called on button's click
  * @param bgColor?: (string) background hexadecimal color
  * @param fontColor?: (string) font hexadecimal color
  * @param disabled?: (boolean) Is input disabled?

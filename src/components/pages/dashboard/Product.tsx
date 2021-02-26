@@ -8,6 +8,7 @@ import {
   AppIconButton,
   AppCheckbox,
   Quantity,
+  DeleteIcon,
   AppConfirmDialog,
 } from './DashboardPage.styles';
 import { ProductModel } from '../../../models';

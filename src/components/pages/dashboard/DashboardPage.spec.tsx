@@ -19,7 +19,7 @@ describe('Dashboard page testes', () => {
 
   it('Should render correctly', () => {
     const { getByText } = render(<Sut />);
-    expect(getByText(/Listei/i)).toBeInTheDocument();
+    expect(getByText(/Lista de compras/i)).toBeInTheDocument();
   });
 
   it('Should start a empty shopping list after confirming to start new list', () => {

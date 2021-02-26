@@ -6,16 +6,12 @@ import {
   NewProduct,
   ListWrapper,
   Product,
+  AppInput,
+  AppButton,
   AppList,
   NewListIcon,
   TotalPriceLabel,
   AppConfirmDialog,
-  LogoIcon,
-  TitleWrapper,
-  AddProductIcon,
-  AppIconButton,
-  AppInput,
-  AppButton,
 } from './DashboardPage.styles';
 import { colors } from './../../../helpers/theme';
 import { ShoppingListContext } from './../../../contexts';
@@ -120,21 +116,16 @@ export const DashboardPage = () => {
           <style>{`body { background-color: ${colors.background}; color: ${colors.contrastBackground}; }`}</style>
         </Helmet>
         <ListTitle>
-          <TitleWrapper>
-            <AppIconButton bgColor={colors.primary}>
-              <LogoIcon />
-            </AppIconButton>
-            Listei
-          </TitleWrapper>
+          <div>Lista de compras</div>
           <div>
-            <AppIconButton
+            <AppButton
               testId="startNewListBtn"
-              bgColor={colors.secondary}
-              fontColor={colors.contrastSecondary}
+              bgColor={colors.primary}
+              fontColor={colors.contrastPrimary}
               onClick={() => setIsStartNewListConfirmDialogOpened(true)}
             >
               <NewListIcon />
-            </AppIconButton>
+            </AppButton>
           </div>
         </ListTitle>
         <ListWrapper>
@@ -170,7 +161,7 @@ export const DashboardPage = () => {
             fontColor={colors.contrastPrimary}
             onClick={onAddNewProduct}
           >
-            <AddProductIcon />
+            Add
           </AppButton>
         </NewProduct>
       </ShoppingList>
