@@ -87,6 +87,10 @@ export const ProductNameLabel = styled.div`
   align-items: center;
   justify-content: space-between;
   padding-right: 0px;
+
+  & s {
+    color: ${colors.contrastBackgroundLighter};
+  }
 `;
 
 export const ProductPriceLabel = styled.div`
