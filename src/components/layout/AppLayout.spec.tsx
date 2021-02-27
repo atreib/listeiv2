@@ -19,7 +19,6 @@ describe('App layout main structure', () => {
     const { getByTestId } = render(<AppLayout>teste</AppLayout>);
     const content = getByTestId('appLayoutContent');
     expect(content).toBeTruthy();
-    console.log('content.innerHTML: ', content.innerHTML);
     expect(content.innerHTML).toContain('teste');
   });
 });

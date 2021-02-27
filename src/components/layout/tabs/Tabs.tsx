@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Tab, Tabs } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { colors } from '../../../helpers/theme';
-import { LogoIcon, HistoryIcon } from '../../utils/icons';
+import { AppRoutes } from './../../../routes';
 
 interface ComponentProps {
   testId: string;
@@ -35,15 +35,8 @@ export const AppTabs = ({ testId }: ComponentProps) => {
 
   const handleChange = (event: React.ChangeEvent<Record<string, unknown>>, newValue: number) => {
     setValue(newValue);
-    console.log('newValue: ', newValue);
-    switch (newValue) {
-      case 0: // First button: shopping list
-        history.push('/');
-        break;
-      case 1: // Second button: history
-        history.push('/history');
-        break;
-    }
+    const selectedPage = AppRoutes.length - 1 >= newValue ? AppRoutes[newValue] : undefined;
+    if (selectedPage) history.push(selectedPage.path);
   };
 
   return (
@@ -56,8 +49,7 @@ export const AppTabs = ({ testId }: ComponentProps) => {
         variant="fullWidth"
         aria-label="full width tabs example"
       >
-        <AppTab icon={<LogoIcon />} label="Lista de compras" />
-        <AppTab icon={<HistoryIcon />} label="Histórico" />
+        {AppRoutes && AppRoutes.map((route, i) => <AppTab key={i} icon={route.Icon} label={route.title} />)}
       </Tabs>
     </TabsWrapper>
   );
