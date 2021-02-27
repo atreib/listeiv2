@@ -3,11 +3,7 @@ import styled from 'styled-components';
 import { Tab, Tabs } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { colors } from '../../../helpers/theme';
-import { LogoIcon, HistoryIcon } from '../icons';
-
-export const AppLayoutContent = styled.div`
-  padding-bottom: calc(76px + 8px);
-`;
+import { LogoIcon, HistoryIcon } from '../../utils/icons';
 
 const TabsWrapper = styled.div`
   background: ${colors.background};

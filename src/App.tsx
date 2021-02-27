@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { StylesProvider } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { NotFoundPage } from './components/pages';
+import { Loading } from './components/utils';
 import { AppRoutes, RoutesModel } from './routes';
-import { Loading } from './components/utils/loading';
 import { ShoppingListProvider } from './contexts';
-import { AppTabs, AppLayoutContent } from './components/utils/tabs/Tabs';
+import { AppLayout } from './components/layout';
 
 const ContainerDiv = styled.div`
   height: 100%;
@@ -18,7 +18,7 @@ function App() {
       <ContainerDiv className="App">
         <ShoppingListProvider>
           <Router>
-            <AppLayoutContent>
+            <AppLayout>
               <Suspense fallback={<Loading>Carregando...</Loading>}>
                 <Switch>
                   {AppRoutes &&
@@ -28,8 +28,7 @@ function App() {
                   <Route component={NotFoundPage} />
                 </Switch>
               </Suspense>
-            </AppLayoutContent>
-            <AppTabs />
+            </AppLayout>
           </Router>
         </ShoppingListProvider>
       </ContainerDiv>
