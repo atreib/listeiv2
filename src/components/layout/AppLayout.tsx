@@ -13,8 +13,8 @@ const AppLayoutContent = styled.div`
 export const AppLayout = ({ children }: ComponentProps) => {
   return (
     <>
-      <AppLayoutContent>{children}</AppLayoutContent>
-      <AppTabs />
+      <AppLayoutContent data-testid="appLayoutContent">{children}</AppLayoutContent>
+      <AppTabs testId="appLayoutNavTabs" />
     </>
   );
 };

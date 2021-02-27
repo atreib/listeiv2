@@ -5,6 +5,10 @@ import { useHistory } from 'react-router-dom';
 import { colors } from '../../../helpers/theme';
 import { LogoIcon, HistoryIcon } from '../../utils/icons';
 
+interface ComponentProps {
+  testId: string;
+}
+
 const TabsWrapper = styled.div`
   background: ${colors.background};
   padding-top: 4px;
@@ -21,7 +25,11 @@ const AppTab = styled(Tab)`
   }
 `;
 
-export const AppTabs = () => {
+/**
+ * Our app's navigation tabs
+ * @param testId: (string) id for testing purpose
+ */
+export const AppTabs = ({ testId }: ComponentProps) => {
   const history = useHistory();
   const [value, setValue] = React.useState(0);
 
@@ -39,7 +47,7 @@ export const AppTabs = () => {
   };
 
   return (
-    <TabsWrapper>
+    <TabsWrapper data-testid={testId}>
       <Tabs
         TabIndicatorProps={{ style: { background: colors.primary } }}
         value={value}
