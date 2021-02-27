@@ -5,8 +5,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { AppTabs } from './Tabs';
 import { AppRoutes } from './../../../routes';
 
-/*  */
-
 describe('App Tabs Test Suite', () => {
   it('Should render a nav button for each route', () => {
     const { getByText } = render(

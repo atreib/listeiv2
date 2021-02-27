@@ -30,8 +30,9 @@ const AppTab = styled(Tab)`
  * @param testId: (string) id for testing purpose
  */
 export const AppTabs = ({ testId }: ComponentProps) => {
+  const openedPageId = AppRoutes.findIndex((x) => x.path === location.pathname);
   const history = useHistory();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(openedPageId);
 
   const handleChange = (event: React.ChangeEvent<Record<string, unknown>>, newValue: number) => {
     setValue(newValue);

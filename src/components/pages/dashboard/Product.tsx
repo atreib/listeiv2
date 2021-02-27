@@ -9,6 +9,7 @@ import {
   AppCheckbox,
   Quantity,
   AppConfirmDialog,
+  LeftIcon,
 } from './DashboardPage.styles';
 import { ProductModel } from '../../../models';
 import { colors } from '../../../helpers/theme';
@@ -110,6 +111,7 @@ export const Product = ({ product, onRemoveProduct, changeProductQuantity, chang
         />
       )}
       <AppListItem
+        icon={<LeftIcon fontSize="small" />}
         paddingTop="16px"
         paddingBottom="16px"
         paddingLeft="0px"
@@ -118,6 +120,7 @@ export const Product = ({ product, onRemoveProduct, changeProductQuantity, chang
         enableSwipeLeft={true}
         leftActionBackgrond={colors.danger}
         leftActionFontColor={colors.contrastDanger}
+        leftActionText={'Remover'}
         onSwipedLeft={() => setIsRemovalConfirmDialogOpened(true)}
       >
         <ProductLabelWrapper>

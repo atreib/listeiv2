@@ -26,6 +26,7 @@ interface ComponentProps {
   leftActionIcon?: ReactElement;
   leftActionBackgrond?: string;
   leftActionFontColor?: string;
+  leftActionText?: string;
   testId?: string;
 }
 
@@ -98,6 +99,7 @@ const useStyles = makeStyles(() => ({
  * @param onSwipedLeft? (() => void) after swiped left callback function
  * @param leftActionBackgrond? (string) left action background color hexadecimal
  * @param leftActionFontColor? (string) left action font color hexadecimal
+ * @param leftActionText? (string) left action text
  * @param testId? (string) optional id for testing purpose
  */
 export const AppListItem = ({
@@ -118,6 +120,7 @@ export const AppListItem = ({
   onSwipedLeft,
   leftActionBackgrond,
   leftActionFontColor,
+  leftActionText,
   testId,
 }: ComponentProps) => {
   const threshold = 0.3;
@@ -232,7 +235,7 @@ export const AppListItem = ({
             opacity: state.isAnimating ? getOpacity() : 0,
           }}
         >
-          Remover
+          {leftActionText}
         </ListItem>
         <StyledListItem
           className={listItemClass}

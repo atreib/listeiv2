@@ -12,7 +12,7 @@ export {
   AppIconButton,
   AppCheckbox,
 } from './../../utils';
-export { NewListIcon, DeleteIcon, PlusIcon, MinusIcon, LogoIcon, AddProductIcon } from './../../utils/icons';
+export { NewListIcon, LeftIcon, PlusIcon, MinusIcon, LogoIcon, AddProductIcon } from './../../utils/icons';
 export { Product } from './Product';
 export { Quantity } from './Quantity';
 
@@ -75,7 +75,7 @@ export const NewProduct = styled.div`
 
 export const ProductLabelWrapper = styled.div`
   flex: 1;
-  max-width: 85%;
+  max-width: 80%;
   display: flex;
   align-items: center;
   font-size: 1.2rem;

@@ -8,6 +8,8 @@ import {
   AppIconButton,
   TitleWrapper,
   PageTitle,
+  AppListItem,
+  LeftIcon,
 } from './HistoryPage.styles';
 import { colors } from './../../../helpers/theme';
 import { ShoppingListModel } from './../../../models';
@@ -80,7 +82,23 @@ export const HistoryPage = () => {
         {shoppingListHistory && (
           <AppList>
             {shoppingListHistory.map((shoppingList) => (
-              <div key={shoppingList.id}>{shoppingList.date.toISOString()}</div>
+              <AppListItem
+                icon={<LeftIcon fontSize="small" />}
+                key={shoppingList.id}
+                paddingTop="16px"
+                paddingBottom="16px"
+                paddingLeft="0px"
+                fontSize="1.3rem"
+                leftActionBackgrond={colors.primary}
+                leftActionFontColor={colors.contrastPrimary}
+                leftActionText={'Carregar'}
+                enableSwipeLeft={true}
+                onSwipedLeft={() => {
+                  return;
+                }}
+              >
+                {shoppingList.date.toISOString()}
+              </AppListItem>
             ))}
           </AppList>
         )}
