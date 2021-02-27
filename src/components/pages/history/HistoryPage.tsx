@@ -13,7 +13,53 @@ import { colors } from './../../../helpers/theme';
 import { ShoppingListModel } from './../../../models';
 
 export const HistoryPage = () => {
-  const products: ShoppingListModel[] = [];
+  const products: ShoppingListModel[] = [
+    {
+      id: 'uuuid0',
+      date: new Date(),
+      products: [
+        {
+          id: 'uuid01',
+          label: 'queijo',
+          quantity: 1,
+          unityPrice: 2,
+          totalPrice: 2,
+        },
+        {
+          id: 'uuid02',
+          label: 'presunto',
+          quantity: 1,
+          unityPrice: 2.25,
+          totalPrice: 2,
+        },
+        {
+          id: 'uuid03',
+          label: 'leite',
+          quantity: 2,
+          unityPrice: 3.1,
+          totalPrice: 6.2,
+        },
+      ],
+    },
+    {
+      id: 'uuuid2',
+      date: new Date(),
+      products: [
+        {
+          id: 'uuid21',
+          label: 'leite',
+          quantity: 1,
+          unityPrice: 3.1,
+          totalPrice: 3.1,
+        },
+      ],
+    },
+    {
+      id: 'uuuid3',
+      date: new Date(),
+      products: [],
+    },
+  ];
 
   return (
     <ShoppingListHistory>
