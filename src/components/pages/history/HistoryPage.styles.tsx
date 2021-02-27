@@ -1,25 +1,8 @@
 import styled from 'styled-components';
 import { colors } from '../../../helpers/theme';
 
-export {
-  AppInput,
-  AppButton,
-  AppList,
-  AppConfirmDialog,
-  AppPromptDialog,
-  AppListItem,
-  AppIconButton,
-  AppCheckbox,
-} from './../../utils';
-export {
-  NewListIcon,
-  DeleteIcon,
-  PlusIcon,
-  MinusIcon,
-  HistoryIcon,
-  AddProductIcon,
-  LeftIcon,
-} from './../../utils/icons';
+export { AppList, AppListItem, AppIconButton } from './../../utils';
+export { HistoryIcon, LeftIcon } from './../../utils/icons';
 
 export const ShoppingListHistory = styled.div`
   margin: 0;
@@ -48,20 +31,4 @@ export const PageTitle = styled.div`
 
 export const ListWrapper = styled.div`
   padding: 0px 0px 4px 0px;
-`;
-
-export const ProductLabelWrapper = styled.div`
-  flex: 1;
-  max-width: 85%;
-  display: flex;
-  align-items: center;
-  font-size: 1.2rem;
-`;
-
-export const ProductNameLabel = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-right: 0px;
 `;
