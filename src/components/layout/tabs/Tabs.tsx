@@ -35,8 +35,10 @@ export const AppTabs = ({ testId }: ComponentProps) => {
 
   const handleChange = (event: React.ChangeEvent<Record<string, unknown>>, newValue: number) => {
     setValue(newValue);
-    const selectedPage = AppRoutes.length - 1 >= newValue ? AppRoutes[newValue] : undefined;
-    if (selectedPage) history.push(selectedPage.path);
+    if (AppRoutes.length - 1 >= newValue) {
+      const selectedPage = AppRoutes[newValue];
+      if (selectedPage) history.push(selectedPage.path);
+    }
   };
 
   return (
@@ -47,7 +49,10 @@ export const AppTabs = ({ testId }: ComponentProps) => {
         onChange={handleChange}
         variant="fullWidth"
       >
-        {AppRoutes && AppRoutes.map((route, i) => <AppTab key={i} icon={route.Icon} label={route.title} />)}
+        {AppRoutes &&
+          AppRoutes.map((route, i) => (
+            <AppTab data-testid={route.testId} key={i} icon={route.Icon} label={route.title} />
+          ))}
       </Tabs>
     </TabsWrapper>
   );
