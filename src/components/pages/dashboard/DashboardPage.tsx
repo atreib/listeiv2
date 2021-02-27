@@ -137,6 +137,23 @@ export const DashboardPage = () => {
             </AppIconButton>
           </div>
         </ListTitle>
+        <NewProduct>
+          <AppInput
+            data-testid="inputProduct"
+            label="Adicionar produto"
+            placeholder="Digite um produto"
+            value={newProduct}
+            setValue={setNewProduct}
+          />
+          <AppButton
+            testId="btnAddProduct"
+            bgColor={colors.primary}
+            fontColor={colors.contrastPrimary}
+            onClick={onAddNewProduct}
+          >
+            <AddProductIcon />
+          </AppButton>
+        </NewProduct>
         <ListWrapper>
           {products && (
             <AppList>
@@ -156,23 +173,6 @@ export const DashboardPage = () => {
         <TotalPriceLabel data-testid="totalPriceLbl">
           Total: R$ {totalPrice.toFixed(2).replace('.', ',')}
         </TotalPriceLabel>
-        <NewProduct>
-          <AppInput
-            data-testid="inputProduct"
-            label="Novo produto"
-            placeholder="Digite um produto"
-            value={newProduct}
-            setValue={setNewProduct}
-          />
-          <AppButton
-            testId="btnAddProduct"
-            bgColor={colors.primary}
-            fontColor={colors.contrastPrimary}
-            onClick={onAddNewProduct}
-          >
-            <AddProductIcon />
-          </AppButton>
-        </NewProduct>
       </ShoppingList>
     </>
   );

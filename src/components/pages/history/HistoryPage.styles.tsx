@@ -11,7 +11,7 @@ export {
   AppIconButton,
   AppCheckbox,
 } from './../../utils';
-export { NewListIcon, DeleteIcon, PlusIcon, MinusIcon, LogoIcon, AddProductIcon } from './../../utils/icons';
+export { NewListIcon, DeleteIcon, PlusIcon, MinusIcon, HistoryIcon, AddProductIcon } from './../../utils/icons';
 
 export const ShoppingListHistory = styled.div`
   margin: 0;

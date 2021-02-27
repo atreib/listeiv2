@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import {
   ShoppingListHistory,
-  LogoIcon,
+  HistoryIcon,
   ListWrapper,
   AppList,
   AppIconButton,
@@ -71,7 +71,7 @@ export const HistoryPage = () => {
       <PageTitle>
         <TitleWrapper>
           <AppIconButton bgColor={colors.primary}>
-            <LogoIcon />
+            <HistoryIcon />
           </AppIconButton>
           Histórico
         </TitleWrapper>
