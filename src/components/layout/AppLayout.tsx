@@ -10,6 +10,10 @@ const AppLayoutContent = styled.div`
   padding-bottom: calc(76px + 8px);
 `;
 
+/**
+ * Our app's layout
+ * @param children: (ReactChild | ReactChildren) our layout content
+ */
 export const AppLayout = ({ children }: ComponentProps) => {
   return (
     <>
