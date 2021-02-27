@@ -9,6 +9,8 @@ interface ComponentProps {
 const StyledList = styled(List)`
   margin: 0;
   padding: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
 `;
 
 /**

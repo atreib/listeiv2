@@ -110,8 +110,8 @@ export const Product = ({ product, onRemoveProduct, changeProductQuantity, chang
         />
       )}
       <AppListItem
-        paddingTop="8px"
-        paddingBottom="8px"
+        paddingTop="16px"
+        paddingBottom="16px"
         paddingLeft="0px"
         fontSize="1.3rem"
         secondaryAction={checkbox}

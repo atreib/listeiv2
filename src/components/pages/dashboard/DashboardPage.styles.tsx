@@ -42,11 +42,11 @@ export const ListTitle = styled.div`
 `;
 
 export const ListWrapper = styled.div`
-  padding: 0px 0px 4px 0px;
+  padding: 0px;
 `;
 
 export const TotalPriceLabel = styled.div`
-  font-size: 0.8rem;
+  font-size: 1rem;
   display: flex;
   justify-content: flex-end;
   padding: 0px 16px;
