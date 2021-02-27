@@ -13,7 +13,7 @@ import { colors } from './../../../helpers/theme';
 import { ShoppingListModel } from './../../../models';
 
 export const HistoryPage = () => {
-  const products: ShoppingListModel[] = [
+  const shoppingListHistory: ShoppingListModel[] = [
     {
       id: 'uuuid0',
       date: new Date(),
@@ -77,14 +77,15 @@ export const HistoryPage = () => {
         </TitleWrapper>
       </PageTitle>
       <ListWrapper>
-        {products && (
+        {shoppingListHistory && (
           <AppList>
-            {products.map((product) => (
-              <div key={product.id}>{product.date}</div>
+            {shoppingListHistory.map((shoppingList) => (
+              <div key={shoppingList.id}>{shoppingList.date.toISOString()}</div>
             ))}
           </AppList>
         )}
-        {(!products || products.length === 0) && 'Não há nada no histórico'}
+        {(!shoppingListHistory || shoppingListHistory.length === 0) &&
+          'Ops, você ainda não criou nenhuma lista de compras'}
       </ListWrapper>
     </ShoppingListHistory>
   );
