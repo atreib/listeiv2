@@ -45,9 +45,7 @@ export const AppTabs = ({ testId }: ComponentProps) => {
         TabIndicatorProps={{ style: { background: colors.primary } }}
         value={value}
         onChange={handleChange}
-        indicatorColor="primary"
         variant="fullWidth"
-        aria-label="full width tabs example"
       >
         {AppRoutes && AppRoutes.map((route, i) => <AppTab key={i} icon={route.Icon} label={route.title} />)}
       </Tabs>
