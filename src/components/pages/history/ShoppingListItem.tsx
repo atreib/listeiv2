@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { ShoppingListContext } from '../../../contexts';
 import { colors } from '../../../helpers/theme';
 import { ShoppingListModel } from '../../../models';
 import { AppConfirmDialog, AppListItem } from '../../utils';
@@ -10,9 +12,13 @@ interface ComponentProps {
 
 export const ShoppingListItem = ({ shoppingList }: ComponentProps) => {
   const [isLoadingOldShoppingList, setIsLoadingOldShoppingList] = useState(false);
+  const { setOpenedList } = useContext(ShoppingListContext);
+  const history = useHistory();
 
   const onOpenOldList = () => {
-    return;
+    setOpenedList(shoppingList);
+    setIsLoadingOldShoppingList(false);
+    history.push('/');
   };
 
   return (
@@ -23,7 +29,7 @@ export const ShoppingListItem = ({ shoppingList }: ComponentProps) => {
           description="Você deseja abrir esta lista antiga? Sua lista atual será apagada..."
           dialogOpen={isLoadingOldShoppingList}
           setDialogOpen={setIsLoadingOldShoppingList}
-          successBtnText="ABrir lista"
+          successBtnText="Abrir lista"
           testId="openOldListConfirm"
           fnSuccess={() => onOpenOldList()}
         />
@@ -42,7 +48,7 @@ export const ShoppingListItem = ({ shoppingList }: ComponentProps) => {
         onSwipedLeft={() => setIsLoadingOldShoppingList(true)}
       >
         <>
-          {shoppingList.date.toLocaleDateString()} ({shoppingList.products.length} produtos)
+          {new Date(shoppingList.date).toLocaleDateString()} ({shoppingList.products.length} produtos)
         </>
       </AppListItem>
     </>

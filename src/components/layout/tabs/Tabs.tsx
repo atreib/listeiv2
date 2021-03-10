@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Tab, Tabs } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
@@ -41,6 +41,13 @@ export const AppTabs = ({ testId }: ComponentProps) => {
       if (selectedPage) history.push(selectedPage.path);
     }
   };
+
+  useEffect(() => {
+    history.listen(() => {
+      const index = AppRoutes.findIndex((x) => x.path === history.location.pathname);
+      if (index >= 0 && index <= AppRoutes.length) setValue(index);
+    });
+  }, [history]);
 
   return (
     <TabsWrapper data-testid={testId}>

@@ -1,6 +1,6 @@
 import React, { useState, createContext, ReactChild, ReactChildren, useEffect, useContext } from 'react';
 import { generateUuid } from '../../helpers/uuid';
-import { ProductModel } from '../../models';
+import { ProductModel, ShoppingListModel } from '../../models';
 import { ShoppingListHistoryContext } from '../shoppingListHistory';
 
 interface ComponentProps {
@@ -15,6 +15,7 @@ type ProviderType = {
   removeProduct: (productId: string) => void;
   addProduct: (productName: string) => void;
   startNewList: () => void;
+  setOpenedList: (shoppingList: ShoppingListModel) => void;
 };
 
 const initialProviderValues: ProviderType = {
@@ -25,6 +26,7 @@ const initialProviderValues: ProviderType = {
   removeProduct: () => null,
   addProduct: () => null,
   startNewList: () => null,
+  setOpenedList: () => null,
 };
 
 const ShoppingListContext = createContext<ProviderType>(initialProviderValues);
@@ -132,6 +134,14 @@ const ShoppingListProvider = ({ children }: ComponentProps) => {
   };
 
   /**
+   * Set the opened shopping list
+   * @param shoppingList: (ShoppingListModel) new opened shopping list
+   */
+  const setOpenedList = (shoppingList: ShoppingListModel) => {
+    setProducts(shoppingList.products);
+  };
+
+  /**
    * Any change on shopping list is persisted
    */
   useEffect(() => {
@@ -159,6 +169,7 @@ const ShoppingListProvider = ({ children }: ComponentProps) => {
         removeProduct,
         addProduct,
         startNewList,
+        setOpenedList,
       }}
     >
       {children}
