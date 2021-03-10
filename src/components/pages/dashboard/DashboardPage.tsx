@@ -105,7 +105,7 @@ export const DashboardPage = () => {
       {isStartNewListConfirmDialogOpened && (
         <AppConfirmDialog
           title="Você tem certeza?"
-          description="Você deseja iniciar uma nova lista de compras vazia?"
+          description="Você deseja iniciar uma nova lista de compras vazia? Sua lista atual será salva no seu histórico de compras..."
           dialogOpen={isStartNewListConfirmDialogOpened}
           setDialogOpen={setIsStartNewListConfirmDialogOpened}
           successBtnText="Nova lista"
