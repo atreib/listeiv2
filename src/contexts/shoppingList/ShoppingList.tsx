@@ -1,6 +1,7 @@
-import React, { useState, createContext, ReactChild, ReactChildren, useEffect } from 'react';
+import React, { useState, createContext, ReactChild, ReactChildren, useEffect, useContext } from 'react';
 import { generateUuid } from '../../helpers/uuid';
-import { ProductModel, ShoppingListModel } from '../../models';
+import { ProductModel } from '../../models';
+import { ShoppingListHistoryContext } from '../shoppingListHistory';
 
 interface ComponentProps {
   children: ReactChild | ReactChildren;
@@ -42,6 +43,7 @@ const ShoppingListContext = createContext<ProviderType>(initialProviderValues);
  */
 const ShoppingListProvider = ({ children }: ComponentProps) => {
   const [products, setProducts] = useState<ProductModel[]>([]);
+  const { addShoppingList } = useContext(ShoppingListHistoryContext);
 
   /**
    * Adds a new product to the shopping list state
@@ -106,15 +108,11 @@ const ShoppingListProvider = ({ children }: ComponentProps) => {
    * - Start a new, empty, one
    */
   const startNewList = () => {
-    let history: ShoppingListModel[] = [];
-    const localStorageHistory = localStorage.getItem('shoppingListHistory');
-    if (localStorageHistory && localStorageHistory !== '') history = JSON.parse(localStorageHistory);
-    history.push({
+    addShoppingList({
       id: generateUuid(),
       date: new Date(),
       products: products,
     });
-    localStorage.setItem('shoppingListHistory', JSON.stringify(history));
     setProducts([]);
     localStorage.setItem('openedShoppingList', '');
   };

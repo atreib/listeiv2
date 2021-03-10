@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { NotFoundPage } from './components/pages';
 import { Loading } from './components/utils';
 import { AppRoutes, RoutesModel } from './routes';
-import { ShoppingListProvider } from './contexts';
+import { ShoppingListProvider, ShoppingListHistoryProvider } from './contexts';
 import { AppLayout } from './components/layout';
 
 const ContainerDiv = styled.div`
@@ -16,21 +16,23 @@ function App() {
   return (
     <StylesProvider injectFirst>
       <ContainerDiv className="App">
-        <ShoppingListProvider>
-          <Router>
-            <AppLayout>
-              <Suspense fallback={<Loading>Carregando...</Loading>}>
-                <Switch>
-                  {AppRoutes &&
-                    AppRoutes.map((route: RoutesModel) => (
-                      <Route key={route.path} path={route.path} exact component={route.component} />
-                    ))}
-                  <Route component={NotFoundPage} />
-                </Switch>
-              </Suspense>
-            </AppLayout>
-          </Router>
-        </ShoppingListProvider>
+        <ShoppingListHistoryProvider>
+          <ShoppingListProvider>
+            <Router>
+              <AppLayout>
+                <Suspense fallback={<Loading>Carregando...</Loading>}>
+                  <Switch>
+                    {AppRoutes &&
+                      AppRoutes.map((route: RoutesModel) => (
+                        <Route key={route.path} path={route.path} exact component={route.component} />
+                      ))}
+                    <Route component={NotFoundPage} />
+                  </Switch>
+                </Suspense>
+              </AppLayout>
+            </Router>
+          </ShoppingListProvider>
+        </ShoppingListHistoryProvider>
       </ContainerDiv>
     </StylesProvider>
   );
