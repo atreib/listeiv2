@@ -47,6 +47,7 @@ export const ShoppingListItem = ({ shoppingList }: ComponentProps) => {
     <>
       {isShoppingListDialogOpen && (
         <AppDialog
+          testId={'shoppingListProductsDialog'}
           dialogOpen={isShoppingListDialogOpen}
           setDialogOpen={setIsShoppingListDialogOpen}
           cancelBtnText={'Fechar'}
@@ -62,7 +63,7 @@ export const ShoppingListItem = ({ shoppingList }: ComponentProps) => {
                 ))}
               </ul>
             )}
-            {!shoppingList.products || (shoppingList.products.length < 0 && 'Não há produtos nesta lista')}
+            {shoppingList.products.length <= 0 && 'Não há produtos nesta lista'}
           </>
         </AppDialog>
       )}

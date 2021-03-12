@@ -138,4 +138,78 @@ describe('History Page Test Suite', () => {
       }
     }
   });
+
+  it('Should open products afte after clicking on shopping list with products', () => {
+    const shoppingListHistoryMock = makeShoppingListHistoryMock();
+    const { getByTestId } = render(
+      <ShoppingListHistoryContext.Provider
+        value={{
+          history: shoppingListHistoryMock,
+          addShoppingList: jest.fn(),
+        }}
+      >
+        <Sut />
+      </ShoppingListHistoryContext.Provider>,
+    );
+
+    const firstShoppingList = shoppingListHistoryMock[0];
+    const openProductsFromListBtn = getByTestId(`${firstShoppingList.id}`);
+    expect(openProductsFromListBtn).toBeTruthy();
+    if (openProductsFromListBtn) {
+      userEvent.click(openProductsFromListBtn);
+      const shoppingListProductsDialog = getByTestId('shoppingListProductsDialog');
+      expect(shoppingListProductsDialog).toBeInTheDocument();
+
+      for (const product of firstShoppingList.products) {
+        const productLabel = `${product.quantity}x ${product.label}`;
+        expect(shoppingListProductsDialog).toHaveTextContent(productLabel);
+      }
+
+      expect(getByTestId('cancelDialogBtn')).toBeInTheDocument();
+      userEvent.click(getByTestId('cancelDialogBtn'));
+      for (const shoppingList of shoppingListHistoryMock) {
+        const shoppingListItem = getByTestId(shoppingList.id);
+        expect(shoppingListItem).toBeTruthy();
+        const dateLbl = new Date(shoppingList.date).toLocaleDateString();
+        expect(shoppingListItem).toHaveTextContent(dateLbl);
+        const productsQuantityLbl = `(${shoppingList.products.length} produtos)`;
+        expect(shoppingListItem).toHaveTextContent(productsQuantityLbl);
+      }
+    }
+  });
+
+  it('Should show feedback afte after clicking on shopping list without products', () => {
+    const shoppingListHistoryMock = makeShoppingListHistoryMock();
+    const { getByTestId, getByText } = render(
+      <ShoppingListHistoryContext.Provider
+        value={{
+          history: shoppingListHistoryMock,
+          addShoppingList: jest.fn(),
+        }}
+      >
+        <Sut />
+      </ShoppingListHistoryContext.Provider>,
+    );
+
+    const firstShoppingList = shoppingListHistoryMock[1];
+    const openProductsFromListBtn = getByTestId(`${firstShoppingList.id}`);
+    expect(openProductsFromListBtn).toBeTruthy();
+    if (openProductsFromListBtn) {
+      userEvent.click(openProductsFromListBtn);
+      const shoppingListProductsDialog = getByTestId('shoppingListProductsDialog');
+      expect(shoppingListProductsDialog).toBeInTheDocument();
+      expect(shoppingListProductsDialog).toHaveTextContent('Não há produtos nesta lista');
+
+      expect(getByTestId('cancelDialogBtn')).toBeInTheDocument();
+      userEvent.click(getByTestId('cancelDialogBtn'));
+      for (const shoppingList of shoppingListHistoryMock) {
+        const shoppingListItem = getByTestId(shoppingList.id);
+        expect(shoppingListItem).toBeTruthy();
+        const dateLbl = new Date(shoppingList.date).toLocaleDateString();
+        expect(shoppingListItem).toHaveTextContent(dateLbl);
+        const productsQuantityLbl = `(${shoppingList.products.length} produtos)`;
+        expect(shoppingListItem).toHaveTextContent(productsQuantityLbl);
+      }
+    }
+  });
 });
