@@ -6,6 +6,7 @@ import { ShoppingListHistoryContext } from './../../../contexts';
 import { generateUuid } from '../../../helpers/uuid';
 import userEvent from '@testing-library/user-event';
 
+// Factory for makeing a shopping list history mock
 const makeShoppingListHistoryMock = () => {
   return [
     {
@@ -34,18 +35,10 @@ const makeShoppingListHistoryMock = () => {
   ];
 };
 
-/*
-  To-do:
-    - Wrap Sut with history provider/context
-      - Source: https://stackoverflow.com/questions/54691799/how-to-test-a-react-component-that-is-dependent-on-usecontext-hook
-    - Create a test for:
-      - Listing shopping list history based on context
-      - Cancelling confirmation dialog for opening a list from history
-      - Confirming confirmation dialog for opening a list from history
-*/
-
+// Jest fn() for history.push()
 const mockHistoryPush = jest.fn();
 
+// Mock react-router-dom useHistory push function
 jest.mock('react-router-dom', () => ({
   ...(jest.requireActual('react-router-dom') as typeof ReactRouterDom),
   useHistory: () => ({

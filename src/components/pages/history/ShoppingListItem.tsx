@@ -10,14 +10,24 @@ interface ComponentProps {
   shoppingList: ShoppingListModel;
 }
 
+/**
+ * Shopping list "list item" component
+ * * Creates a list item for this shopping list
+ * * Open the shopping list in homepage when user slides to the left
+ * * Show date and products' quantity of the shopping list
+ * @param shoppingList: (ShoppingListModel) a shopping list
+ * @returns (AppListItem) shopping list
+ */
 export const ShoppingListItem = ({ shoppingList }: ComponentProps) => {
   const [isLoadingOldShoppingList, setIsLoadingOldShoppingList] = useState(false);
   const { setOpenedList } = useContext(ShoppingListContext);
   const history = useHistory();
 
+  // Set shoppingList as the opened one
   const onOpenOldList = () => {
     setOpenedList(shoppingList);
     setIsLoadingOldShoppingList(false);
+    // Redirect to homepage
     history.push('/');
   };
 

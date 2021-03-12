@@ -13,6 +13,11 @@ import { colors } from './../../../helpers/theme';
 import { ShoppingListItem } from './ShoppingListItem';
 import { ShoppingListHistoryContext } from '../../../contexts';
 
+/**
+ * Our page for showing the shopping list history
+ * * List all shopping lists from context
+ * @returns History page component
+ */
 export const HistoryPage = () => {
   const { history: shoppingListHistory } = useContext(ShoppingListHistoryContext);
 
