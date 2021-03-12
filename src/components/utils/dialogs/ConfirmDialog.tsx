@@ -11,6 +11,7 @@ interface ComponentProps {
   dialogOpen: boolean;
   setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
   testId?: string;
+  cancelTestId?: string;
 }
 
 /**
@@ -22,6 +23,7 @@ interface ComponentProps {
  * @param dialogOpen: (boolean) boolean to "is dialog opened?"
  * @param setDialogOpen: (React.Dispatch<React.SetStateAction<boolean>>) react hooks function to set the "is dialog opened?" value
  * @param testId?: (string) optional id for testing purposal
+ * @param cancelTestId?: (string) optional id of confirm dialog cancel btn for testing purposal
  */
 export const AppConfirmDialog = ({
   title,
@@ -31,6 +33,7 @@ export const AppConfirmDialog = ({
   dialogOpen,
   setDialogOpen,
   testId = '',
+  cancelTestId = 'cancelDialogBtn',
 }: ComponentProps) => {
   const BtnConfirm = () => (
     <AppButton
@@ -47,6 +50,7 @@ export const AppConfirmDialog = ({
     <div>
       <AppDialog
         testId={testId}
+        cancelTestId={cancelTestId}
         title={title}
         dialogOpen={dialogOpen}
         setDialogOpen={setDialogOpen}

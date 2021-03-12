@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { ShoppingListContext } from '../../../contexts';
 import { colors } from '../../../helpers/theme';
 import { ShoppingListModel } from '../../../models';
-import { AppConfirmDialog, AppIconButton, AppListItem } from '../../utils';
+import { AppConfirmDialog, AppDialog, AppIconButton, AppListItem } from '../../utils';
 import { LeftIcon } from './HistoryPage.styles';
 
 interface ComponentProps {
@@ -19,14 +19,15 @@ interface ComponentProps {
  * @returns (AppListItem) shopping list
  */
 export const ShoppingListItem = ({ shoppingList }: ComponentProps) => {
-  const [isLoadingOldShoppingList, setIsLoadingOldShoppingList] = useState(false);
+  const [isOpenShoppingListConfirmOpen, setIsOpenShoppingListConfirmOpen] = useState(false);
+  const [isShoppingListDialogOpen, setIsShoppingListDialogOpen] = useState(false);
   const { setOpenedList } = useContext(ShoppingListContext);
   const history = useHistory();
 
   // Set shoppingList as the opened one
   const onOpenOldList = () => {
     setOpenedList(shoppingList);
-    setIsLoadingOldShoppingList(false);
+    setIsOpenShoppingListConfirmOpen(false);
     // Redirect to homepage
     history.push('/');
   };
@@ -37,21 +38,43 @@ export const ShoppingListItem = ({ shoppingList }: ComponentProps) => {
   // to open an old shopping list
   // (because testing library hasn't a swipe simulator)
   const openShoppingListBtn = (
-    <AppIconButton testId={`openList_${shoppingList.id}`} onClick={() => setIsLoadingOldShoppingList(true)}>
+    <AppIconButton testId={`openList_${shoppingList.id}`} onClick={() => setIsOpenShoppingListConfirmOpen(true)}>
       &nbsp;
     </AppIconButton>
   );
 
   return (
     <>
-      {isLoadingOldShoppingList && (
+      {isShoppingListDialogOpen && (
+        <AppDialog
+          dialogOpen={isShoppingListDialogOpen}
+          setDialogOpen={setIsShoppingListDialogOpen}
+          cancelBtnText={'Fechar'}
+          title={`Lista de ${new Date(shoppingList.date).toLocaleDateString()}`}
+        >
+          <>
+            {shoppingList.products && shoppingList.products.length > 0 && (
+              <ul>
+                {shoppingList.products.map((product) => (
+                  <li key={product.id}>
+                    {product.quantity}x {product.label}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {!shoppingList.products || (shoppingList.products.length < 0 && 'Não há produtos nesta lista')}
+          </>
+        </AppDialog>
+      )}
+      {isOpenShoppingListConfirmOpen && (
         <AppConfirmDialog
           title="Você tem certeza?"
           description="Você deseja abrir esta lista antiga? Sua lista atual será apagada..."
-          dialogOpen={isLoadingOldShoppingList}
-          setDialogOpen={setIsLoadingOldShoppingList}
+          dialogOpen={isOpenShoppingListConfirmOpen}
+          setDialogOpen={setIsOpenShoppingListConfirmOpen}
           successBtnText="Abrir lista"
           testId="openOldListConfirm"
+          cancelTestId="openOldListConfirmCancelBtn"
           fnSuccess={() => onOpenOldList()}
         />
       )}
@@ -62,11 +85,12 @@ export const ShoppingListItem = ({ shoppingList }: ComponentProps) => {
         paddingBottom="16px"
         paddingLeft="0px"
         fontSize="1.3rem"
+        onListItemClick={() => setIsShoppingListDialogOpen(true)}
         leftActionBackgrond={colors.primary}
         leftActionFontColor={colors.contrastPrimary}
         leftActionText={'Carregar'}
         enableSwipeLeft={true}
-        onSwipedLeft={() => setIsLoadingOldShoppingList(true)}
+        onSwipedLeft={() => setIsOpenShoppingListConfirmOpen(true)}
         testId={shoppingList.id}
       >
         <>

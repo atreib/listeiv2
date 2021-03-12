@@ -38,7 +38,7 @@ const makeShoppingListHistoryMock = () => {
 // Jest fn() for history.push()
 const mockHistoryPush = jest.fn();
 
-// Mock react-router-dom useHistory push function
+// Mock react-router-dom useHistory push
 jest.mock('react-router-dom', () => ({
   ...(jest.requireActual('react-router-dom') as typeof ReactRouterDom),
   useHistory: () => ({
@@ -125,8 +125,8 @@ describe('History Page Test Suite', () => {
     if (openListBtn) {
       userEvent.click(openListBtn);
       expect(getByTestId('openOldListConfirm')).toBeInTheDocument();
-      expect(getByTestId('cancelDialogBtn')).toBeInTheDocument();
-      userEvent.click(getByTestId('cancelDialogBtn'));
+      expect(getByTestId('openOldListConfirmCancelBtn')).toBeInTheDocument();
+      userEvent.click(getByTestId('openOldListConfirmCancelBtn'));
 
       for (const shoppingList of shoppingListHistoryMock) {
         const shoppingListItem = getByTestId(shoppingList.id);

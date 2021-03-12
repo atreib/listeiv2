@@ -15,6 +15,7 @@ interface ComponentProps {
   ExtraButtons?: (() => JSX.Element)[];
   cancelBtnText?: string;
   testId?: string;
+  cancelTestId?: string;
 }
 
 const DialogContentWrapper = styled(DialogContent)`
@@ -32,6 +33,7 @@ const DialogContentWrapper = styled(DialogContent)`
  * @param ExtraButtons?: (Array<() => JSX.Element>) array of functions that return a JSX.Element (our dialog buttons)
  * @param cancelBtnText?: (string) text of the cancel button
  * @param testId?: (string) text of the cancel button
+ * @param cancelTestId?: (string) optional id of dialog cancel btn for testing purposal
  */
 export const AppDialog = ({
   title,
@@ -41,6 +43,7 @@ export const AppDialog = ({
   ExtraButtons,
   cancelBtnText,
   testId = '',
+  cancelTestId = 'cancelDialogBtn',
 }: ComponentProps) => {
   if (!cancelBtnText) cancelBtnText = 'Fechar';
 
@@ -62,7 +65,7 @@ export const AppDialog = ({
         <DialogContentWrapper dividers={true}>{children}</DialogContentWrapper>
         <DialogActions>
           <AppButton
-            testId="cancelDialogBtn"
+            testId={cancelTestId}
             bgColor={colors.background}
             fontColor={colors.contrastBackground}
             onClick={handleClose}
