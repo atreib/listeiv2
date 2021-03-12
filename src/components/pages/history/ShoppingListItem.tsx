@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { ShoppingListContext } from '../../../contexts';
 import { colors } from '../../../helpers/theme';
 import { ShoppingListModel } from '../../../models';
-import { AppButton, AppConfirmDialog, AppListItem } from '../../utils';
+import { AppConfirmDialog, AppIconButton, AppListItem } from '../../utils';
 import { LeftIcon } from './HistoryPage.styles';
 
 interface ComponentProps {
@@ -37,9 +37,9 @@ export const ShoppingListItem = ({ shoppingList }: ComponentProps) => {
   // to open an old shopping list
   // (because testing library hasn't a swipe simulator)
   const openShoppingListBtn = (
-    <AppButton testId={`openList_${shoppingList.id}`} onClick={() => setIsLoadingOldShoppingList(true)}>
+    <AppIconButton testId={`openList_${shoppingList.id}`} onClick={() => setIsLoadingOldShoppingList(true)}>
       &nbsp;
-    </AppButton>
+    </AppIconButton>
   );
 
   return (
